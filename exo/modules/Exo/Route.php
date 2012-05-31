@@ -8,6 +8,7 @@ class Route
 {
 	const DEFAULT_ROUTE_ID = 'default';
 	const DEFAULT_ROUTE_METHOD = 'index';
+	const REQUEST_SEPARATOR = '/';
 
 	/**
 	 * The routes
@@ -30,9 +31,9 @@ class Route
 			$options['method'] = self::DEFAULT_ROUTE_METHOD;
 		}
 
+		$options['segments'] = self::parse_segments(@$options['pattern']);
+
 		self::$routes[$id] = (object)$options;
-
-
 	}
 
 	/**
@@ -74,7 +75,20 @@ class Route
 			if ($id == self::DEFAULT_ROUTE_ID) { continue; }
 
 			// match all arguments
-			throw new Exception('here');
+			$match = TRUE;
+			foreach ($route->segments as $index => $segment)
+			{
+				if (@$request->segments[$index] != $segment)
+				{
+					$match = FALSE;
+				}
+			}
+
+			// it matched all the way through..
+			if ($match)
+			{
+				return $route;
+			}
 		}
 
 		if (array_key_exists(self::DEFAULT_ROUTE_ID, self::$routes))
@@ -85,4 +99,19 @@ class Route
 		throw new Exception('Route could not be found', $request);
 	}
 
+	/**
+	 * Parse the segments that make up a request string or pattern
+	 * @param string $string
+	 * @return array segments in array of strings
+	 */
+	public static function parse_segments($string)
+	{
+		$string = trim($string, self::REQUEST_SEPARATOR);
+
+		if (empty($string))
+		{
+			return array();
+		}
+		return explode(self::REQUEST_SEPARATOR, $string);
+	}
 }
