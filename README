@@ -15,3 +15,27 @@ Coming Soon:
 - Existence PHP ORM
 - ExoTest Unit Testing Framework
 - ExoUI Form/UI Toolkit
+
+HOW-TO USE:
+- Add route to app/config/routes.php:
+
+	Route::add('example', array(
+		'pattern' => '/example',
+		'class' => 'Example\Application',
+		'method' => 'hello_world'
+	));
+
+- Create a new class in app/modules/Example/Application.php
+
+	/**
+	 * Example Application
+	 * @author Guillaume VanderEst <guillaume@vanderest.org>
+	 */
+	namespace Example;
+	class Application Extends \Exo\Application
+	{
+		public function hello_world()
+		{
+			return 'Hello World';
+		}
+	}
