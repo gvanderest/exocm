@@ -13,11 +13,11 @@ Route::add('default', array(
 Route::add('example', array(
 	'pattern' => '/example',
 	'class' => 'Example\Application',
-	'method' => 'example',
+	'method' => 'example'
 ));
 
 Route::add('example2', array(
 	'pattern' => '/another/example',
 	'class' => 'Example\Application',
-	'method' => 'example2',
+	'method' => 'example2'
 ));
