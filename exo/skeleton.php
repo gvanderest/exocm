@@ -4,6 +4,7 @@
  * @author Guillaume VanderEst <guillaume@vanderest.org>
  * @package exo
  */
+use Exo\Environment;
 use Exo\Request;
 use Exo\Response;
 use Exo\Route;
@@ -40,7 +41,7 @@ class Exo
 	 * @param object $e
 	 * @return void
 	 */
-	public function exception(\Exception $e)
+	public static function exception(\Exception $e)
 	{
 		?>
 <?php if (!headers_sent()): ?>
@@ -125,19 +126,27 @@ class Exo
 	 */
 	public static function execute()
 	{
-		session_start();
-		try
-		{
-			self::register_autoloader();
-			self::load_includes();
-			$response = self::load_route();
-			$response->send_http_headers();
-			print($response->content);
+		self::register_autoloader();
+		self::load_includes();
 
-		} catch (Exception $e) {
+		$env = self::load_environment();
 
-			self::exception($e);
-		}
+		self::register_exception_handler();
+
+		self::load_session();
+		$response = self::load_route();
+		$response->send_http_headers();
+		print($response->content);
+	}
+
+	/**
+	 * Get themes path
+	 * @param void
+	 * @return string path
+	 */
+	public static function get_themes_path()
+	{
+		return realpath(EXO\APP_PATH . '/themes');
 	}
 
 	/**
@@ -145,7 +154,7 @@ class Exo
 	 * @param void
 	 * @return void
 	 */
-	public function load_includes()
+	public static function load_includes()
 	{
 		$dirs = array(
 			Exo\APP_PATH . '/config',
@@ -167,11 +176,29 @@ class Exo
 	}
 
 	/**
+	 * Load appropriate environment
+	 * @param void
+	 * @return void
+	 */
+	public static function load_environment()
+	{
+		$env = Environment::get();
+		
+		if ($env->debug)
+		{
+			ini_set('display_errors', TRUE);
+			error_reporting($env->debug);
+		}
+
+		return $env;
+	}
+
+	/**
 	 * Load the requested route
 	 * @param void
 	 * @return string proper output
 	 */
-	public function load_route()
+	public static function load_route()
 	{
 		$request = new Request();
 		$request->string = @$_REQUEST[self::REQUEST_KEY];
@@ -214,6 +241,19 @@ class Exo
 	}
 
 	/**
+	 * Load the current session
+	 * @param void
+	 * @return void
+	 */
+	public static function load_session()
+	{
+		if (!session_id())
+		{
+			session_start();
+		}
+	}
+
+	/**
 	 * Register the ExoSkeleton auto-loader
 	 * @param void
 	 * @return void
@@ -221,5 +261,15 @@ class Exo
 	public static function register_autoloader()
 	{
 		spl_autoload_register('Exo::autoload', TRUE, TRUE);
+	}
+
+	/**
+	 * Register exception handler
+	 * @param void
+	 * @return void
+	 */
+	public static function register_exception_handler()
+	{
+		set_exception_handler('Exo::exception');
 	}
 }
