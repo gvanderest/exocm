@@ -13,7 +13,7 @@ class Entity
 	 * @param string $property
 	 * @return mixed the property value
 	 */
-	public function &__get($property)
+	public function __get($property)
 	{
 		$method = 'get_' . $property;
 		if (method_exists($this, $method))
