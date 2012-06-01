@@ -16,6 +16,12 @@ Route::add('example', array(
 	'method' => 'example'
 ));
 
+Route::add('database', array(
+	'pattern' => '/database',
+	'class' => 'Example\Application',
+	'method' => 'database'
+));
+
 Route::add('example2', array(
 	'pattern' => '/another/example',
 	'class' => 'Example\Application',
