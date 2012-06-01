@@ -11,6 +11,16 @@ class Application Extends \Exo\Application
 {
 	public function index()
 	{
+		$content = '<h1>Hello World</h1>';
+		$content .= '<p>This is just an example of the outputting of a template using ExoSkeleton</p>';
+		$content .= '<ul>';
+		$content .= '<li><a href="' . $this->view->url_to_self('request') . '">Request Object Explanation</a></li>';
+		$content .= '<li><a href="' . $this->view->url_to_self('response') . '">Response Object Explanation</a></li>';
+		$content .= '<li><a href="' . $this->view->url_to_self('database') . '">Database Example</a></li>';
+		$content .= '<li><a href="' . $this->view->url_to_self('config') . '">Quick Configuration</a></li>';
+		$content .= '</ul>';
+
+		$this->data['content'] = $content;
 
 		return $this->view->render('default');
 	}
