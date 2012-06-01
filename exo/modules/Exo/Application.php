@@ -9,6 +9,12 @@ namespace Exo;
 class Application extends Entity
 {
 	/**
+	 * Data storage for application, accessible to other processes
+	 * @var array
+	 */
+	protected $data = array();
+
+	/**
 	 * The request for this application
 	 * @var Exo\Request
 	 */
