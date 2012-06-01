@@ -7,8 +7,10 @@ namespace Exo;
 class Route
 {
 	const DEFAULT_ROUTE_ID = 'default';
+	const DEFAULT_ROUTE_THEME = 'default';
 	const DEFAULT_ROUTE_METHOD = 'index';
 	const REQUEST_SEPARATOR = '/';
+	const DEFAULT_ROUTE_PATTERN = self::REQUEST_SEPARATOR;
 
 	/**
 	 * The routes
@@ -24,12 +26,12 @@ class Route
 	 */
 	public static function add($id, $options)
 	{
-		$options['id'] = $id;
-
-		if (!array_key_exists('method', $options))
-		{
-			$options['method'] = self::DEFAULT_ROUTE_METHOD;
-		}
+		$options = array_merge(array(
+			'id' => $id,
+			'theme' => self::DEFAULT_ROUTE_THEME,
+			'pattern' => self::DEFAULT_ROUTE_PATTERN,
+			'method' => self::DEFAULT_ROUTE_METHOD
+		), $options);
 
 		$options['segments'] = self::parse_segments(@$options['pattern']);
 
@@ -45,7 +47,7 @@ class Route
 	{
 		if (is_null($request))
 		{
-			return self::$routes;
+			throw new NYI();
 		}
 
 		if (is_string($request))
