@@ -199,6 +199,10 @@ class Exo
 		}
 
 		$object = new $class($request);
+		if (!method_exists($object, $method))
+		{
+			throw new Exception('Route method "' . $class . '->' . $method . '()" does not exist');
+		}
 		$response = $object->$method();
 
 		if (!$response instanceof Response)
