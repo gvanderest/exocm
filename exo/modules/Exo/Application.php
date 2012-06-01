@@ -21,6 +21,12 @@ class Application extends Entity
 	protected $request;
 
 	/**
+	 * The route that led to this application
+	 * @var stdClass
+	 */
+	protected $route;
+
+	/**
 	 * For display, the view object to reference
 	 * @var Exo\View
 	 */
@@ -33,10 +39,12 @@ class Application extends Entity
 	public function __construct($request = NULL)
 	{
 		$this->request = $request;
+		$this->route = $this->request->route;
 
 		if (!$this->view)
 		{
 			$this->view = new View($this);
+			$this->view->theme = $this->route->theme;
 		}
 	}
 }
