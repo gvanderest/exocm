@@ -1,20 +1,28 @@
 ExoSkeleton PHP 5.3 Framework
 
 Features:
-- Routing definition and loading
-- Environment definition and loading
-- Clean response methods
-- Basic templating inclusion
 - Entity passthrough class for property definition
 
 Coming Soon:
 - Database interface classes extending PDO
 - RESTful application interfacing
+- Formatted data output (xml, json, etc.)
+- Caching of requests on a per-application basis
+- Basic templating inclusion
+- Clean response methods
+- Environment definition and loading
+- Routing definition and loading and application arguments
 
-(Maybe) Coming Soon Via Other Projects:
-- Existence PHP ORM
-- ExoTest Unit Testing Framework
-- ExoUI Form/UI Toolkit
+Coming Maybe:
+- Basic authentication support, maybe
+
+Dreams?
+- Event driven handling/proxying of requests and responses
+
+Similar Projects:
+- Existence PHP ORM - http://exodus.io/orm
+- ExoTest Unit Testing Framework - http://exodus.io/test
+- ExoUI Form/UI Toolkit - http://exodus.io/ui
 
 HOW-TO USE:
 - Add route to app/config/routes.php:
