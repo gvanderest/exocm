@@ -9,8 +9,11 @@ class Application Extends \Exo\Application
 {
 	public function index()
 	{
-		return 'Hello World';
-		echo '<pre>';
-		var_dump($this->request);
+		return $this->view->render('default');
+	}
+
+	public function example()
+	{
+		return $this->view->render('default');
 	}
 }
