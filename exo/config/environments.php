@@ -11,11 +11,11 @@ Environment::add('live', array(
 
 Environment::add('staging', array(
 	'host' => 'stagingserver.com',
-	'debug' => E_ALL | E_NOTICE
+	'debug' => E_ALL
 ));
 
 Environment::add('development', array(
 	'host' => $_SERVER['HTTP_HOST'],
-	'debug' => E_ALL | E_NOTICE
+	'debug' => E_ALL
 ));
 
