@@ -8,6 +8,12 @@
 namespace Exo;
 class Response extends Entity
 {
+	const HTTP_NOT_FOUND_CODE = 404;
+	const HTTP_NOT_FOUND_MESSAGE = 'Not Found';
+
+	const HTTP_OK_CODE = 200;
+	const HTTP_OK_MESSAGE = 'OK';
+
 	/**
 	 * The string content for this response to send as output
 	 * @var string
@@ -18,13 +24,13 @@ class Response extends Entity
 	 * The HTTP code the request should respond with
 	 * @var integer
 	 */
-	protected $http_code = 200;
+	protected $http_code = self::HTTP_OK_CODE;
 
 	/**
 	 * The HTTP message the request should responsd with
 	 * @var string
 	 */
-	protected $http_message = 'OK';
+	protected $http_message = self::HTTP_OK_MESSAGE;
 
 	/**
 	 * The request which resulted in this response
