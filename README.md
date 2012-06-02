@@ -33,19 +33,19 @@ HOW TO USE THIS DAMN THING
 --------------------------
 Add route to app/config/routes.php:
 
->Route::add('example', array(
->	'pattern' => '/example',
->	'class' => 'Example\Application',
->	'method' => 'hello_world'
->));
+	Route::add('example', array(
+		'pattern' => '/example',
+		'class' => 'Example\Application',
+		'method' => 'hello_world'
+	));
 
-- Create a new class in app/modules/Example/Application.php
+Create a new class in app/modules/Example/Application.php
 
->namespace Example;
->class Application
->{
->	public function hello_world()
->	{
->		return 'Hello World';
->	}
->}
+	namespace Example;
+	class Application
+	{
+		public function hello_world()
+		{
+			return 'Hello World';
+		}
+	}
