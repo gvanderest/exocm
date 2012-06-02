@@ -7,9 +7,9 @@
 namespace Example;
 use Exo\Database\Connection as Connection;
 use PDO;
-class Application Extends \Exo\Application
+class Application extends \Exo\Application
 {
-	public function index()
+	public function get_index()
 	{
 		$content = '<h1>Hello World</h1>';
 		$content .= '<p>This is just an example of the outputting of a template using ExoSkeleton</p>';
@@ -35,6 +35,11 @@ class Application Extends \Exo\Application
 		echo '<pre>';
 		var_dump($query->fetchAll());
 		echo '</pre>';
+	}
+
+	public function get_test()
+	{
+		return 'success';
 	}
 
 	public function example()

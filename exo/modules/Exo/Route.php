@@ -30,7 +30,8 @@ class Route
 			'id' => $id,
 			'theme' => self::DEFAULT_ROUTE_THEME,
 			'pattern' => self::DEFAULT_ROUTE_PATTERN,
-			'method' => self::DEFAULT_ROUTE_METHOD
+			'method' => self::DEFAULT_ROUTE_METHOD,
+			'restful' => FALSE
 		), $options);
 
 		$options['segments'] = self::parse_segments(@$options['pattern']);

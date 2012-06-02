@@ -13,6 +13,8 @@ class Exo
 {
 	const REQUEST_KEY = '_exo';
 	const REQUEST_SEPARATOR = '/';
+	const DEFAULT_METHOD = 'index';
+	const ERROR_METHOD = 'error';
 
 	/**
 	 * Load classes
@@ -202,10 +204,13 @@ class Exo
 	{
 		$request = new Request();
 		$request->string = @$_REQUEST[self::REQUEST_KEY];
-		$request->arguments = $request->segments = explode(self::REQUEST_SEPARATOR, $request->string);
+
+		$request->segments = explode(self::REQUEST_SEPARATOR, $request->string);
 
 		$route = Route::get($request);
 		$request->route = $route;
+
+		$request->arguments = array_slice($request->segments, count($route->segments));
 
 		if (!$route)
 		{
@@ -213,22 +218,29 @@ class Exo
 		}
 
 		$class = $route->class;
-		$method = $route->method;
 
-		if (!$method && $route->restful)
+		// if restful, use a protocol_segment0 method
+
+		if ($route->restful)
 		{
-			$argument = $request->get_argument(0);
-			if (!$argument)
-			{
-				$argument = 'index';
-			}
-			$method = 'get_' . $argument;
+			$method = implode('_', array(
+				strtolower($_SERVER['REQUEST_METHOD']),
+				@$request->arguments[0] ? $request->arguments[0] : self::DEFAULT_METHOD
+			));
+			$request->arguments = array_slice($request->arguments, 1);
+			
+		} else {
+			$method = @$route->method ? $route->method : self::DEFAULT_METHOD;
 		}
 
 		$object = new $class($request);
 		if (!method_exists($object, $method))
 		{
-			throw new Exception('Route method "' . $class . '->' . $method . '()" does not exist');
+			if (!method_exists($object, self::ERROR_METHOD))
+			{
+				throw new Exception('Route method "' . $class . '->' . $method . '()" does not exist');
+			}
+			$method = 'error';
 		}
 		$response = $object->$method();
 

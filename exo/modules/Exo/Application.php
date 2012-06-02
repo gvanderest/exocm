@@ -47,4 +47,18 @@ class Application extends Entity
 			$this->view->theme = $this->route->theme;
 		}
 	}
+
+	/**
+	 * There is an error, and an error response should be given
+	 * @return Exo\Request error-state response
+	 */
+	public function error()
+	{
+		$response = new Response;
+		$response->http_code = Response::HTTP_NOT_FOUND_CODE;
+		$response->http_message = Response::HTTP_NOT_FOUND_MESSAGE;
+		$response->content .= '<h1>Not Found</h1>';
+		$response->content .= '<p>The requested resource could not be found</p>';
+		return $response;
+	}
 }

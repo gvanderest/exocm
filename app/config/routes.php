@@ -6,24 +6,17 @@
 
 use Exo\Route;
 
+// RESTful application
+// defaults to get_index if no segments specified; otherwise,
+// tries to find get_{segment0} or post_{segment0} depending
+// on the type of request being made
 Route::add('default', array(
-	'class' => 'Example\Application'
+	'class' => 'Example\Application',
+	'restful' => TRUE
 ));
 
 Route::add('example', array(
-	'pattern' => '/example',
+	'pattern' => '/testing/route',
 	'class' => 'Example\Application',
-	'method' => 'example'
-));
-
-Route::add('database', array(
-	'pattern' => '/database',
-	'class' => 'Example\Application',
-	'method' => 'database'
-));
-
-Route::add('example2', array(
-	'pattern' => '/another/example',
-	'class' => 'Example\Application',
-	'method' => 'example2'
+	'restful' => TRUE
 ));
