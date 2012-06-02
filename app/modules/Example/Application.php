@@ -46,4 +46,9 @@ class Application extends \Exo\Application
 	{
 		return $this->view->render('default');
 	}
+
+	public function hello_world()
+	{
+		return 'Hello World';
+	}
 }

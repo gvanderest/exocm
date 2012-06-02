@@ -16,7 +16,7 @@ Route::add('default', array(
 ));
 
 Route::add('example', array(
-	'pattern' => '/testing/route',
-	'class' => 'Example\Application',
-	'restful' => TRUE
+    'pattern' => '/example',
+    'class' => 'Example\Application',
+    'method' => 'hello_world'
 ));
