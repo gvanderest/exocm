@@ -29,6 +29,12 @@ class View extends Entity
 	protected $template;
 
 	/**
+	 * Temporary storage for the full template path
+	 * @var string
+	 */
+	protected $template_path;
+
+	/**
 	 * The theme name being used, also the theme folder name
 	 * @var string defaults to 'default'
 	 */
@@ -103,8 +109,15 @@ class View extends Entity
 		unset($__key);
 		unset($__value);
 
+		// the file does not exist
+		$this->template_path = $this->_get_theme_path() . '/' . $this->template . '.php';
+		if (!file_exists($this->template_path))
+		{
+			throw new Exception('The requested template "' . $this->theme . '/' . $this->template . '" could not be found');
+		}
+
 		ob_start();
-		include($this->_get_theme_path() . '/' . $this->template . '.php');
+		include($this->template_path);
 		$output = ob_get_clean();
 		return new Response($output);
 	}
