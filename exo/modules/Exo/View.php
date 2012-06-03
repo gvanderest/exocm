@@ -136,7 +136,7 @@ class View extends Entity
 		$segments = array_merge($segments, $args);
 
 		// now make it a string
-		return '/' . implode(Route::REQUEST_SEPARATOR, $segments);
+		return BASE_URL . '/' . implode(Route::REQUEST_SEPARATOR, $segments);
 	}
 
 	/**
