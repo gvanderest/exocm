@@ -12,7 +12,7 @@
 	<html>         
 	<!--<![endif]-->
 	<head>
-		<title>Example Theme | exoskeleton</title>
+		<title>Example Theme | ExoSkeleton</title>
 		<meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="<?= $this->theme_url ?>/css/styles.css" /> 
 	</head>
@@ -21,7 +21,7 @@
 <div id="wrapper"> 
     <div id="container"> 
         <div id="header"> 
-        <div id="title"><a href="<?= $this->url_to_self() ?>">exoskeleton</a></div> <!-- #title --> 
+        <div id="title"><a href="<?= $this->url_to_self() ?>">ExoSkeleton</a></div> <!-- #title --> 
             <div id="subtitle">A Simple And Powerful PHP Framework</div> <!-- #subtitle --> 
         </div> <!-- #header --> 
         <div id="body"> 
