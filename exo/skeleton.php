@@ -240,7 +240,7 @@ class Exo
 			{
 				throw new Exception('Route method "' . $class . '->' . $method . '()" does not exist');
 			}
-			$method = 'error';
+			$method = self::ERROR_METHOD;
 		}
 		$response = $object->$method();
 
