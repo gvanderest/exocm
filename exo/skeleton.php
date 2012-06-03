@@ -169,7 +169,10 @@ class Exo
 		{
 			if (is_dir($dir))
 			{
-				foreach (glob($dir . '/*.php') as $path)
+				$results = glob($dir . '/*.php');
+				if (!is_array($results)) { continue; }
+
+				foreach ($results as $path)
 				{
 					include_once($path);
 				}
