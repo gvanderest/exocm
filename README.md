@@ -8,10 +8,10 @@ Features
 - Basic templating inclusion via View class
 - Routing definition and loading and application arguments
 - Environment definition and loading
+- Database interface classes extending PDO
 
 Coming Soon
 -----------
-- Database interface classes extending PDO
 - Formatted data output (xml, json, etc.)
 - Caching of requests on a per-application basis
 
