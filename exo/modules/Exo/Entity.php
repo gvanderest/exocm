@@ -15,7 +15,7 @@ class Entity
 	 */
 	public function __get($property)
 	{
-		$method = 'get_' . $property;
+		$method = '_get_' . $property;
 		if (method_exists($this, $method))
 		{
 			return $this->$method();
@@ -37,7 +37,7 @@ class Entity
 	 */
 	public function &__set($property, $value)
 	{
-		$method = 'set_' . $property;
+		$method = '_set_' . $property;
 		if (method_exists($this, $method))
 		{
 			return $this->$method($value);
