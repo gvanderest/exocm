@@ -7,7 +7,8 @@
 
 namespace Exo\Database;
 use PDO;
-use Exo\Database as Database;
+use Exo\Database;
+use Exo\Environment;
 class Connection extends PDO
 {
 	/**
@@ -15,8 +16,15 @@ class Connection extends PDO
 	 * @param string $id
 	 * @see /app/conf/databases.php for configuration
 	 */
-	public function __construct($id)
+	public function __construct($id = NULL)
 	{
+		// if there is no $id specified, try to detect it based on environment
+		if (is_null($id))
+		{
+			$env = Environment::get();
+			$id = $env->database;
+		}
+
 		$database = Database::get($id);
 		$dsn = $database->type . ':dbname=' . $database->name . ';host=' . $database->host;
 		parent::__construct($dsn, $database->user, $database->password);
