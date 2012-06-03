@@ -6,16 +6,19 @@
 use Exo\Environment;
 
 Environment::add('live', array(
-	'host' => array('livedomain.com', 'www.livedomain.com')
+	'host' => array('livedomain.com', 'www.livedomain.com'),
+	'database' => 'live'
 ));
 
 Environment::add('staging', array(
 	'host' => 'stagingserver.com',
-	'debug' => E_ALL
+	'debug' => E_ALL,
+	'database' => 'staging'
 ));
 
 Environment::add('development', array(
 	'host' => $_SERVER['HTTP_HOST'],
-	'debug' => E_ALL
+	'debug' => E_ALL,
+	'database' => 'development'
 ));
 
