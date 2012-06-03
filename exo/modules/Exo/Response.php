@@ -33,12 +33,6 @@ class Response extends Entity
 	protected $http_message = self::HTTP_OK_MESSAGE;
 
 	/**
-	 * The request which resulted in this response
-	 * @var Exo\Request
-	 */
-	protected $request;
-
-	/**
 	 * Instantiate the response
 	 * @param Exo\Request $request (optional)
 	 */
