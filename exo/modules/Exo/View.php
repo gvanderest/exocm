@@ -47,7 +47,7 @@ class View extends Entity
 	 * Get the URL to the theme (usually used from inside a template)
 	 * @return string $url
 	 */
-	public function get_theme_url()
+	public function _get_theme_url()
 	{
 		return APP_THEMES_URL . '/' . $this->theme;
 	}
@@ -56,9 +56,22 @@ class View extends Entity
 	 * Get the path to the template
 	 * @return string path
 	 */
-	public function get_theme_path()
+	public function _get_theme_path()
 	{
 		return APP_THEMES_PATH . '/' . $this->theme;
+	}
+
+	/**
+	 * Similar to how include() works, but relative to theme path
+	 * @param string $file
+	 */
+	public function inc($path)
+	{
+		if (substr($path, 0, 1) != '/')
+		{
+			$path = '/' . $path;
+		}
+		include($this->_get_theme_path() . $path);
 	}
 
 	/**
@@ -91,7 +104,7 @@ class View extends Entity
 		unset($__value);
 
 		ob_start();
-		include($this->get_theme_path() . '/' . $this->template . '.php');
+		include($this->_get_theme_path() . '/' . $this->template . '.php');
 		$output = ob_get_clean();
 		return new Response($output);
 	}
