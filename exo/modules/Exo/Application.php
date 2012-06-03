@@ -54,11 +54,9 @@ class Application extends Entity
 	 */
 	public function error()
 	{
-		$response = new Response;
+		$response = $this->view->render('error');
 		$response->http_code = Response::HTTP_NOT_FOUND_CODE;
 		$response->http_message = Response::HTTP_NOT_FOUND_MESSAGE;
-		$response->content .= '<h1>Not Found</h1>';
-		$response->content .= '<p>The requested resource could not be found</p>';
 		return $response;
 	}
 }
