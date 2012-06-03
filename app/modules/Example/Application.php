@@ -5,46 +5,45 @@
  */
 
 namespace Example;
-use Exo\Database\Connection as Connection;
-use PDO;
-class Application extends \Exo\Application
+use Exo\Application as App;
+use Exo\Database\Connection;
+class Application extends App
 {
 	public function get_index()
 	{
-		$content = '<h1>Hello World</h1>';
-		$content .= '<p>This is just an example of the outputting of a template using ExoSkeleton</p>';
-		$content .= '<ul>';
-		$content .= '<li><a href="' . $this->view->url_to_self('request') . '">Request Object Explanation</a></li>';
-		$content .= '<li><a href="' . $this->view->url_to_self('response') . '">Response Object Explanation</a></li>';
-		$content .= '<li><a href="' . $this->view->url_to_self('database') . '">Database Example</a></li>';
-		$content .= '<li><a href="' . $this->view->url_to_self('config') . '">Quick Configuration</a></li>';
-		$content .= '</ul>';
-
-		$this->data['content'] = $content;
-
-		return $this->view->render('default');
+		return $this->view->render('example/index');
 	}
 
-	public function database()
+	public function get_database()
 	{
-		$db = new Connection('dev');
+		$db = new Connection();
 
 		$sql = 'SELECT * FROM test';
 		$query = $db->prepare($sql);
 		$result = $query->execute();
-		echo '<pre>';
-		var_dump($query->fetchAll());
-		echo '</pre>';
+
+		$this->data['results'] = $query->fetchAll();
+
+		return $this->view->render('example/database');
 	}
 
-	public function get_test()
+	public function get_response()
 	{
-		return 'success';
+		$response = $this->view->render('example/response');
+		$response->content = 'Removed to reduce annoyance';
+		$this->data['response'] = $response;
+		return $this->view->render('example/response');
 	}
 
-	public function example()
+	public function get_request()
 	{
-		return $this->view->render('default');
+		$this->data['request'] = $this->request;
+		return $this->view->render('example/request');
+	}
+
+	public function get_config()
+	{
+		return $this->view->render('example/config');
 	}
 
 	public function hello_world()
