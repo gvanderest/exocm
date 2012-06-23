@@ -208,6 +208,10 @@ class Exo
 		$request = new Request();
 		$request->string = @$_REQUEST[self::REQUEST_KEY];
 
+		$request->method = strtolower(@$_SERVER['REQUEST_METHOD']);
+
+		$request->user_agent = @$_SERVER['HTTP_USER_AGENT'];
+
 		$request->segments = explode(self::REQUEST_SEPARATOR, $request->string);
 
 		$route = Route::get($request);
