@@ -11,8 +11,6 @@ use Exo\Route;
 
 class Exo
 {
-	const REQUEST_KEY = '_exo';
-	const REQUEST_SEPARATOR = '/';
 	const DEFAULT_METHOD = 'index';
 	const ERROR_METHOD = 'error';
 
@@ -130,13 +128,14 @@ class Exo
 	{
 		self::register_autoloader();
 		self::load_includes();
-
-		$env = self::load_environment();
-
 		self::register_exception_handler();
 
+		$request = Request::get();
+
+		$env = self::load_environment($request);
+
 		self::load_session();
-		$response = self::load_route();
+		$response = self::load_route($request);
 		$response->send_http_headers();
 		print($response->content);
 	}
@@ -182,10 +181,10 @@ class Exo
 
 	/**
 	 * Load appropriate environment
-	 * @param void
+	 * @param Exo\Request $request
 	 * @return void
 	 */
-	public static function load_environment()
+	public static function load_environment($request)
 	{
 		$env = Environment::get();
 		
@@ -198,9 +197,19 @@ class Exo
 		// if the environment isn't using the correct hostname (on GET), redirect
 		if (is_array($env->host))
 		{
-			if ($_SERVER['HTTP_HOST'] != $env->host[0])
+			$current_host = @$_SERVER['HTTP_HOST'];
+			$default_host = @$env->host[0];
+			if ($current_host != $default_host)
 			{
-				
+				if ($_SERVER['REQUEST_METHOD'] == 'GET')
+				{
+					header(sprintf("Location: %s://%s/%s",
+						$request->protocol,
+						$default_host,
+						$request->string
+					));
+					exit();
+				}
 			}
 		}
 
@@ -212,20 +221,8 @@ class Exo
 	 * @param void
 	 * @return string proper output
 	 */
-	public static function load_route()
+	public static function load_route($request)
 	{
-		$request = new Request();
-		$request->string = @$_REQUEST[self::REQUEST_KEY];
-
-		$request->host = @$_SERVER['HTTP_HOST'];
-		$request->protocol = @$_SERVER['HTTPS'] ? 'https' : 'http';
-		$request->method = strtolower(@$_SERVER['REQUEST_METHOD']);
-		$request->domain = $request->protocol . '://' . $request->host;
-
-		$request->user_agent = @$_SERVER['HTTP_USER_AGENT'];
-
-		$request->segments = explode(self::REQUEST_SEPARATOR, $request->string);
-
 		$route = Route::get($request);
 		$request->route = $route;
 

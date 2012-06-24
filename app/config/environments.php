@@ -17,7 +17,8 @@ Environment::add('staging', array(
 ));
 
 Environment::add('development', array(
-	'host' => $_SERVER['HTTP_HOST'],
+	// this will redirect to primary domain on GET
+	'host' => array($_SERVER['HTTP_HOST'], 'secondarydomain'), 
 	'debug' => E_ALL,
 	'database' => 'development'
 ));
