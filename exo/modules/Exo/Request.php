@@ -42,4 +42,8 @@ class Request extends Entity
 	 * @var string
 	 */
 	protected $user_agent;
+
+	protected $host;
+	protected $protocol;
+	protected $domain;
 }

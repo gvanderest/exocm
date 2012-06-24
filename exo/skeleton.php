@@ -195,6 +195,15 @@ class Exo
 			error_reporting($env->debug);
 		}
 
+		// if the environment isn't using the correct hostname (on GET), redirect
+		if (is_array($env->host))
+		{
+			if ($_SERVER['HTTP_HOST'] != $env->host[0])
+			{
+				
+			}
+		}
+
 		return $env;
 	}
 
@@ -208,7 +217,10 @@ class Exo
 		$request = new Request();
 		$request->string = @$_REQUEST[self::REQUEST_KEY];
 
+		$request->host = @$_SERVER['HTTP_HOST'];
+		$request->protocol = @$_SERVER['HTTPS'] ? 'https' : 'http';
 		$request->method = strtolower(@$_SERVER['REQUEST_METHOD']);
+		$request->domain = $request->protocol . '://' . $request->host;
 
 		$request->user_agent = @$_SERVER['HTTP_USER_AGENT'];
 
