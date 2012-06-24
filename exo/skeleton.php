@@ -174,7 +174,7 @@ class Exo
 
 				foreach ($results as $path)
 				{
-					include_once($path);
+					include($path);
 				}
 			}
 		}
