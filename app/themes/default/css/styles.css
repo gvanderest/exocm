@@ -6,12 +6,15 @@
 @import 'screen.css';
 
 body { font-family: Arial, sans-serif; font-size: 13px; }
+
 #header { padding: 10px 0 20px 0; cursor: default; background-color: #aaa; color: #fff; border-bottom: 4px solid #888; }
+
 #title { font-weight: bold; text-shadow: 0px 0px 10px #555; font-size: 40px; width: 960px; margin: 0 auto 0 auto; }
 #title a { color: #fff; text-decoration: none; }
 #title a:hover { color: #eee; }
 #title a strong { color: #ddd; }
 #title a:hover strong { color: #ccc; }
+
 #subtitle { text-shadow: 0 0 10px #555; font-weight: bold; width: 960px; margin: 0 auto 0 auto; }
 
 #body { width: 960px; margin: 15px auto 100px auto; }
