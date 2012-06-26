@@ -12,7 +12,7 @@
 	<html>         
 	<!--<![endif]-->
 	<head>
-		<title>Example Theme | ExoSkeleton</title>
+		<title><?= isset($title) ? $title : 'Example Theme' ?> | ExoSkeleton</title>
 		<meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="<?= $this->theme_url ?>/css/styles.css" /> 
 	</head>

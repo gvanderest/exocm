@@ -1,4 +1,5 @@
-<?php $this->inc('inc/header.php'); ?>
+<?php $title = 'Quick Configuration'; ?>
+<?php include($this->theme_path . '/inc/header.php'); ?>
 
 <h1>Quick Configuration</h1>
 <p>So now you've got this framework installed on your server, or you're just reading up on this framework, and you want to get going.</p>
@@ -93,6 +94,4 @@ class Application extends \Exo\Application
 }
 </pre>
 
-
-
-<?php $this->inc('inc/footer.php'); ?>
+<?php include($this->theme_path . '/inc/footer.php'); ?>
