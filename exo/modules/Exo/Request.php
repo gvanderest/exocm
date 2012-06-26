@@ -9,6 +9,7 @@ class Request extends Entity
 {
 	const REQUEST_KEY = '_exo';
 	const REQUEST_SEPARATOR = '/';
+	const FORMAT_SEPARATOR = '.';
 
 	/**
 	 * Raw request string
@@ -46,6 +47,7 @@ class Request extends Entity
 	 */
 	protected $user_agent;
 
+	protected $format;
 	protected $host;
 	protected $protocol;
 	protected $domain;
@@ -68,6 +70,20 @@ class Request extends Entity
 		$request->user_agent = @$_SERVER['HTTP_USER_AGENT'];
 
 		$request->segments = explode(self::REQUEST_SEPARATOR, $request->string);
+
+		$request->format = 'default';
+
+		$last_segment = end($request->segments);
+		if (strpos($last_segment, self::FORMAT_SEPARATOR) !== FALSE)
+		{
+			$last_segment = array_pop($request->segments);
+			$parts = explode(self::FORMAT_SEPARATOR, $last_segment);
+			$request->format = array_pop($parts);
+			$last_segment = implode(self::FORMAT_SEPARATOR, $parts);
+			array_push($request->segments, $last_segment);
+		}
+		var_dump($request->format);
+		var_dump($request->segments);
 
 		return $request;
 	}
