@@ -9,10 +9,10 @@ Features
 - Routing definition and loading and application arguments
 - Environment definition and loading
 - Database interface classes extending PDO
+- Data output formatting (html, xml, json, etc.)
 
 Coming Soon
 -----------
-- Formatted data output (xml, json, etc.)
 - Caching of requests on a per-application basis
 
 Coming Maybe
