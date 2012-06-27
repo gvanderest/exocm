@@ -46,6 +46,19 @@ class Application extends App
 		return $this->view->render('example/config');
 	}
 
+	public function get_format()
+	{
+		$this->data = array(
+			'example' => (object)array(
+				'name' => 'Guillaume VanderEst',
+				'email' => 'gui@exodus.io',
+				'position' => 'Developer'
+
+			)
+		);
+		return $this->view->render('example/format');
+	}
+
 	public function hello_world()
 	{
 		return 'Hello World';

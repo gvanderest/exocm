@@ -5,7 +5,7 @@
 
 @import 'screen.css';
 
-body { font-family: Arial, sans-serif; font-size: 13px; }
+body { font-family: Arial, sans-serif; font-size: 13px; line-height: 1.4; }
 
 #header { padding: 10px 0 20px 0; cursor: default; background-color: #aaa; color: #fff; border-bottom: 4px solid #888; }
 
