@@ -1,3 +1,16 @@
+<?php
+function curl_get($url)
+{
+	$ch = curl_init($url);
+	curl_setopt_array($ch, array(
+		CURLOPT_FOLLOWLOCATION => TRUE,
+		CURLOPT_RETURNTRANSFER => TRUE
+	));
+	$result = curl_exec($ch);
+	curl_close($ch);
+	return $result;
+}
+?>
 <?php $title = 'Output Formats'; ?>
 <?php include($this->theme_path . '/inc/header.php'); ?>
 
@@ -8,8 +21,8 @@
 <h2>PHP Data From Application:</h2>
 <pre><?php var_dump($this->data) ?></pre>
 <h2>/format.json</h2>
-<pre><?= htmlentities(file_get_contents($this->url_to_self('format.json'))) ?></pre>
+<pre><?= htmlentities(curl_get($this->url_to_self('format.json'))) ?></pre>
 <h2>/format.xml</h2>
-<pre><?= htmlentities(file_get_contents($this->url_to_self('format.xml'))) ?></pre>
+<pre><?= htmlentities(curl_get($this->url_to_self('format.xml'))) ?></pre>
 
 <?php include($this->theme_path . '/inc/footer.php'); ?>
