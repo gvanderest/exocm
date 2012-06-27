@@ -19,6 +19,12 @@ class Response extends Entity
 	 * @var string
 	 */
 	protected $content;
+
+	/**
+	 * The MIME-type of content being generated
+	 * @var string
+	 */
+	protected $content_type = 'text/plain';
 	
 	/**
 	 * The HTTP code the request should respond with
@@ -34,16 +40,11 @@ class Response extends Entity
 
 	/**
 	 * Instantiate the response
-	 * @param Exo\Request $request (optional)
+	 * @param string $content (optional)
 	 */
-	public function __construct($request = NULL)
+	public function __construct($content = NULL)
 	{
-		if (is_string($request))
-		{
-			$this->content = $request;
-		} else {
-			$this->request = $request;
-		}
+		$this->content = $content;
 	}
 
 	/**
@@ -51,27 +52,21 @@ class Response extends Entity
 	 * @param void
 	 * @return void
 	 */
-	public function send_http_headers($http_code = NULL, $http_message = NULL)
+	public function send_http_headers()
 	{
 		if (headers_sent())
 		{
 			return;
 		}
 
-		if ($http_code === NULL)
-		{
-			$http_code = $this->http_code;
-		}
-
-		if ($http_message === NULL)
-		{
-			$http_message = $this->http_message;
-		}
+		header(sprintf("Content-type: %s",
+			$this->content_type
+		));
 
 		header(sprintf("%s %d %s", 
 			$_SERVER['SERVER_PROTOCOL'], 
-			$http_code,
-			$http_message
+			$this->http_code,
+			$this->http_message
 		));
 	}
 }

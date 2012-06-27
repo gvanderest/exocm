@@ -14,7 +14,7 @@ Renderer::add('json', array(
 ));
 
 Renderer::add(array('html', 'default'), array(
-	'class' => 'Exo\Renderer\JSON'
+	'class' => 'Exo\Renderer\HTML'
 ));
 
 

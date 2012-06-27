@@ -4,15 +4,47 @@
  * @author Guillaume VanderEst <guillaume@vanderest.org>
  */
 namespace Exo;
-class Renderer
+
+use Exo\Entity;
+
+class Renderer extends Entity
 {
 	const DEFAULT_RENDERER_ID = 'default';
+	const DEFAULT_TEMPLATE = 'default';
 
 	/**
-	 * The renderer
+	 * The data being rendered, temporary
+	 * @var array
+	 */
+	protected $data = array();
+
+	/**
+	 * The template to load for this renderer
+	 * @var string
+	 */
+	protected $template = self::DEFAULT_TEMPLATE;
+
+	/**
+	 * The view that instantiated the renderer
+	 * @var Exo\View
+	 */
+	protected $view;
+
+	/**
+	 * The renderers that can be loaded
 	 * @var array
 	 */
 	public static $renderers = array();
+
+	/**
+	 * Instantiate the renderer
+	 * @param Exo\View $view
+	 * @return void
+	 */
+	public function __construct($view = NULL)
+	{
+		$this->view = $view;
+	}
 
 	/**
 	 * Add a renderer
@@ -33,13 +65,9 @@ class Renderer
 			foreach ($id as $one_id)
 			{
 				$options['id'] = $one_id;
-				$result = self::add($one_id, $options);
-				if (!$result)
-				{
-					return FALSE;
-				}
+				self::add($one_id, $options);
 			}
-			return TRUE;
+			return;
 		}
 
 		self::$renderers[$id] = (object)$options;
@@ -54,7 +82,7 @@ class Renderer
 	{
 		if (array_key_exists($id, self::$renderers))
 		{
-			return @self::$renderers[$request];
+			return self::$renderers[$id];
 		}
 		throw new Exception('Requested renderer "' . $id . '" could not be found');
 	}

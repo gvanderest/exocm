@@ -73,6 +73,7 @@ class Request extends Entity
 
 		$request->format = 'default';
 
+		// allow for formats to be specified for the last segment
 		$last_segment = end($request->segments);
 		if (strpos($last_segment, self::FORMAT_SEPARATOR) !== FALSE)
 		{
@@ -82,8 +83,6 @@ class Request extends Entity
 			$last_segment = implode(self::FORMAT_SEPARATOR, $parts);
 			array_push($request->segments, $last_segment);
 		}
-		var_dump($request->format);
-		var_dump($request->segments);
 
 		return $request;
 	}
