@@ -1,14 +1,16 @@
 <?php
-function curl_get($url)
+if (!function_exists('curl_get'))
 {
-	$ch = curl_init($url);
-	curl_setopt_array($ch, array(
-		CURLOPT_FOLLOWLOCATION => TRUE,
-		CURLOPT_RETURNTRANSFER => TRUE
-	));
-	$result = curl_exec($ch);
-	curl_close($ch);
-	return $result;
+	function curl_get($url)
+	{
+		$ch = curl_init($url);
+		curl_setopt_array($ch, array(
+			CURLOPT_RETURNTRANSFER => TRUE
+		));
+		$result = curl_exec($ch);
+		curl_close($ch);
+		return $result;
+	}
 }
 ?>
 <?php $title = 'Output Formats'; ?>
