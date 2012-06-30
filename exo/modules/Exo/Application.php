@@ -27,12 +27,6 @@ class Application extends Entity
 	protected $route;
 
 	/**
-	 * For display, the view object to reference
-	 * @var Exo\View
-	 */
-	protected $view;
-
-	/**
 	 * Instantiate the application
 	 * @param Exo\Request (optional) $request
 	 */
@@ -40,12 +34,6 @@ class Application extends Entity
 	{
 		$this->request = $request;
 		$this->route = $this->request->route;
-
-		if (!$this->view)
-		{
-			$this->view = new View($this);
-			$this->view->theme = $this->route->theme;
-		}
 	}
 
 	/**
@@ -58,5 +46,36 @@ class Application extends Entity
 		$response->http_code = Response::HTTP_NOT_FOUND_CODE;
 		$response->http_message = Response::HTTP_NOT_FOUND_MESSAGE;
 		return $response;
+	}
+
+	/**
+	 * Render a template
+	 * @param string $template
+	 * @param array $data (optional)
+	 * @return Exo\Response
+	 */
+	public function render($template, $data = NULL)
+	{
+		// find the format being used
+		$format = Renderer::DEFAULT_RENDERER_ID;
+		if (isset($this->request)) 
+		{ 
+			$format = $this->request->format; 
+		}
+
+		// insantiate renderer
+		$renderer = Renderer::get($format);
+		$class = $renderer->class;
+		$renderer = new $class($this);
+		$renderer->template = $template;
+
+		if ($data === NULL)
+		{
+			$data = $this->data;
+		}
+
+		// render it
+		$response = $renderer->render($data);
+		return $renderer->render($data);
 	}
 }

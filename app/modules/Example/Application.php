@@ -11,7 +11,7 @@ class Application extends App
 {
 	public function get_index()
 	{
-		return $this->view->render('example/index');
+		return $this->render('example/index');
 	}
 
 	public function get_database()
@@ -22,28 +22,28 @@ class Application extends App
 		$query = $db->prepare($sql);
 		$result = $query->execute();
 
-		$this->data['results'] = $query->fetchAll();
+		$this->data['results'] = $query->fetchAll(PDO::FETCH_OBJ);
 
-		return $this->view->render('example/database');
+		return $this->render('example/database');
 	}
 
 	public function get_response()
 	{
-		$response = $this->view->render('example/response');
+		$response = $this->render('example/response');
 		$response->content = 'Removed to reduce annoyance';
 		$this->data['response'] = $response;
-		return $this->view->render('example/response');
+		return $this->render('example/response');
 	}
 
 	public function get_request()
 	{
 		$this->data['request'] = $this->request;
-		return $this->view->render('example/request');
+		return $this->render('example/request');
 	}
 
 	public function get_config()
 	{
-		return $this->view->render('example/config');
+		return $this->render('example/config');
 	}
 
 	public function get_format()
@@ -56,7 +56,7 @@ class Application extends App
 
 			)
 		);
-		return $this->view->render('example/format');
+		return $this->render('example/format');
 	}
 
 	public function hello_world()
