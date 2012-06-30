@@ -11,5 +11,5 @@ Database::add('development', array(
 	'host' => 'localhost',
 	'user' => 'root',
 	'password' => '',
-	'name' => 'exo'
+	'name' => 'exocm'
 ));

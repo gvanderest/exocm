@@ -1,0 +1,6 @@
+/**
+ * IE8-specific fixes
+ * @author Guillaume VanderEst <guillaume@vanderest.org>
+ */
+
+.nivo-controlNav a { position: relative; top: -8px; }
