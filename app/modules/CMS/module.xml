@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<module>
+	<namespace>CMS</namespace>
+	<version>0.0.1</version>
+	<name>Content Management System</name>
+	<author>Exodus Labs</author>
+	<email>info@exodus.io</email>
+</module>
