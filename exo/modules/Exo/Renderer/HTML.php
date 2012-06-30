@@ -52,7 +52,7 @@ class HTML extends Renderer
 
 	public function render($data)
 	{
-		$this->theme = $this->view->theme;
+		$this->theme = $this->application->route->theme;
 		$this->theme_path = $this->_get_theme_path();
 		$this->theme_url = $this->_get_theme_url();
 		$this->template_path = $this->_get_theme_path() . '/' . $this->template . '.php';
@@ -106,7 +106,7 @@ class HTML extends Renderer
 	 */
 	public function url_to_self($args = array())
 	{
-		$request = $this->view->application->request;
+		$request = $this->application->request;
 		return $this->url_to_route($request->route, $args);
 	}
 }

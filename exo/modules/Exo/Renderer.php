@@ -25,10 +25,10 @@ class Renderer extends Entity
 	protected $template = self::DEFAULT_TEMPLATE;
 
 	/**
-	 * The view that instantiated the renderer
-	 * @var Exo\View
+	 * The application that instantiated the renderer
+	 * @var Exo\Application
 	 */
-	protected $view;
+	protected $application;
 
 	/**
 	 * The renderers that can be loaded
@@ -41,9 +41,9 @@ class Renderer extends Entity
 	 * @param Exo\View $view
 	 * @return void
 	 */
-	public function __construct($view = NULL)
+	public function __construct($application = NULL)
 	{
-		$this->view = $view;
+		$this->application = $application;
 	}
 
 	/**
