@@ -194,6 +194,15 @@ class Exo
 			error_reporting($env->debug);
 		}
 
+		$session_length = 7200;
+		if (isset($env->session_length))
+		{
+			$session_length = $env->session_length;
+		}
+		ini_set('session.gc_maxlifetime', $session_length);
+		ini_set('session.gc_probability', 1);
+		ini_set('session.gc_divisor', 1);
+
 		// if the environment isn't using the correct hostname (on GET), redirect
 		if (is_array($env->host))
 		{
