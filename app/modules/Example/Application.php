@@ -59,6 +59,12 @@ class Application extends App
 		return $this->render('example/format');
 	}
 
+	public function get_cache()
+	{
+		sleep(1);
+		return $this->render('example/cache');
+	}
+
 	public function hello_world()
 	{
 		return 'Hello World';

@@ -12,11 +12,12 @@ use Exo\Route;
 // on the type of request being made
 Route::add('default', array(
 	'class' => 'Example\Application',
-	'restful' => TRUE
+	'restful' => TRUE,
+	'cache' => 5 
 ));
 
 Route::add('example', array(
-    'pattern' => '/example',
+    'pattern' => '/hello_world',
     'class' => 'Example\Application',
     'method' => 'hello_world'
 ));

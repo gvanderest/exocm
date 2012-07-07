@@ -51,6 +51,38 @@ class Request extends Entity
 	protected $host;
 	protected $protocol;
 	protected $domain;
+	protected $start_time;
+
+	/**
+	 * Instantiate Request
+	 */
+	public function __construct()
+	{
+		$this->start_time = microtime(TRUE);
+		$this->string = @$_REQUEST[self::REQUEST_KEY];
+
+		$this->host = @$_SERVER['HTTP_HOST'];
+		$this->protocol = @$_SERVER['HTTPS'] ? 'https' : 'http';
+		$this->method = strtolower(@$_SERVER['REQUEST_METHOD']);
+		$this->domain = $this->protocol . '://' . $this->host;
+
+		$this->user_agent = @$_SERVER['HTTP_USER_AGENT'];
+
+		$this->segments = explode(self::REQUEST_SEPARATOR, $this->string);
+
+		$this->format = 'default';
+
+		// allow for formats to be specified for the last segment
+		$last_segment = end($this->segments);
+		if (strpos($last_segment, self::FORMAT_SEPARATOR) !== FALSE)
+		{
+			$last_segment = array_pop($this->segments);
+			$parts = explode(self::FORMAT_SEPARATOR, $last_segment);
+			$this->format = array_pop($parts);
+			$last_segment = implode(self::FORMAT_SEPARATOR, $parts);
+			array_push($this->segments, $last_segment);
+		}
+	}
 
 	/**
 	 * Start the request object, which other applications can append to
@@ -60,29 +92,6 @@ class Request extends Entity
 	public static function get()
 	{
 		$request = new self();
-		$request->string = @$_REQUEST[self::REQUEST_KEY];
-
-		$request->host = @$_SERVER['HTTP_HOST'];
-		$request->protocol = @$_SERVER['HTTPS'] ? 'https' : 'http';
-		$request->method = strtolower(@$_SERVER['REQUEST_METHOD']);
-		$request->domain = $request->protocol . '://' . $request->host;
-
-		$request->user_agent = @$_SERVER['HTTP_USER_AGENT'];
-
-		$request->segments = explode(self::REQUEST_SEPARATOR, $request->string);
-
-		$request->format = 'default';
-
-		// allow for formats to be specified for the last segment
-		$last_segment = end($request->segments);
-		if (strpos($last_segment, self::FORMAT_SEPARATOR) !== FALSE)
-		{
-			$last_segment = array_pop($request->segments);
-			$parts = explode(self::FORMAT_SEPARATOR, $last_segment);
-			$request->format = array_pop($parts);
-			$last_segment = implode(self::FORMAT_SEPARATOR, $parts);
-			array_push($request->segments, $last_segment);
-		}
 
 		return $request;
 	}
