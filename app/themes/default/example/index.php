@@ -8,6 +8,7 @@
 	<li><a href="<?= $this->url_to_self('response') ?>">Response Object Explanation</a></li>
 	<li><a href="<?= $this->url_to_self('format') ?>">Output Formats</a></li>
 	<li><a href="<?= $this->url_to_self('database') ?>">Database Example</a></li>
+	<li><a href="<?= $this->url_to_self('cache') ?>">Response Caching</a></li>
 	<li><a href="<?= $this->url_to_self('config') ?>">Quick Configuration</a></li>
 </ul>
 
