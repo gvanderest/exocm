@@ -22,7 +22,7 @@ class Application extends App
 		$query = $db->prepare($sql);
 		$result = $query->execute();
 
-		$this->data['results'] = $query->fetchAll(PDO::FETCH_OBJ);
+		$this->data['results'] = $query->fetchAll();
 
 		return $this->render('example/database');
 	}
