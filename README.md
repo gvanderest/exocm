@@ -1,6 +1,8 @@
 ExoSkeleton PHP 5.3 Framework
 =============================
 
+Live Example: http://exodus.io/framework/
+
 Features
 --------
 - Entity passthrough class for property definition
