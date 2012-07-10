@@ -1,12 +1,12 @@
-<?php require_once($this->theme_path . '/inc/header.php'); ?>
+<?php include($this->theme_path . '/inc/header.php'); ?>
 
 <h1>Pages</h1>
 <?= breadcrumb(array('Pages' => '')) ?>
 
 	<div id="cms-add">
 		<ul>
-			<li><a href="<?= $this->get_self_url('pages/add/menu') ?>">Add Menu</a></li>
-			<li><a href="<?= $this->get_self_url('pages/add/page') ?>">Add Page</a></li>
+			<li><a href="<?= $this->url_to_self('pages/add/menu') ?>">Add Menu</a></li>
+			<li><a href="<?= $this->url_to_self('pages/add/page') ?>">Add Page</a></li>
 		</ul>
 	</div> <!-- #cms-add -->
 
@@ -18,11 +18,11 @@ function display_sidebar_item($_page, $view)
 	<?php $page_classes = array(); ?>
 	<?php if (!$_page->active) { $page_classes[] = 'inactive'; } ?>
 	<?php if (isset($_page->menu_page_type) && $_page->menu_page_type == 'url'): ?>
-		<li class="<?= $_page->menu_page_type ?>"><span class="<?= implode(' ', $page_classes) ?>"><?= $_page->menu_page_title ?> (<?= $_page->menu_page_url ?>)</span> [<a href="<?= $view->get_self_url(array('pages/edit/link', $_page->menu_page_id)) ?>">Edit</a>] [<a href="<?= $view->get_self_url(array('pages/delete/link', $_page->menu_page_id)); ?>" onclick="return confirm('Are you sure you wish to delete this link?');">Delete</a>]</li>
+		<li class="<?= $_page->menu_page_type ?>"><span class="<?= implode(' ', $page_classes) ?>"><?= $_page->menu_page_title ?> (<?= $_page->menu_page_url ?>)</span> [<a href="<?= $view->url_to_self(array('pages/edit/link', $_page->menu_page_id)) ?>">Edit</a>] [<a href="<?= $view->url_to_self(array('pages/delete/link', $_page->menu_page_id)); ?>" onclick="return confirm('Are you sure you wish to delete this link?');">Delete</a>]</li>
 	<?php else: ?>
 		<li class="<?= $_page->menu_page_type ?>"><span class="<?= implode(' ', $page_classes) ?>"><?= isset($_page->menu_page_title) ? $_page->menu_page_title : $_page->title ?>
 			<?php if (isset($_page->menu_page_title) && $_page->title != $_page->menu_page_title) { ?><span class="actual_page_title">(Page: <?= $_page->title ?>)</span><?php } ?>
-		</span> [<a href="<?= $view->get_self_url(array('pages/edit/page', $_page->id)) ?>">Edit</a>] [<a href="<?= $view->get_self_url(array('pages/delete/page', $_page->id)) ?>" onclick="return confirm('Are you sure you wish to delete this page?')">Delete</a>]</li>
+		</span> [<a href="<?= $view->url_to_self(array('pages/edit/page', $_page->id)) ?>">Edit</a>] [<a href="<?= $view->url_to_self(array('pages/delete/page', $_page->id)) ?>" onclick="return confirm('Are you sure you wish to delete this page?')">Delete</a>]</li>
 	<?php endif; ?>
 	<?php
 }
@@ -73,7 +73,7 @@ foreach ($this->data['pages'] as $page)
 <div id="cms-sidebar">
 	<div id="cms-menus">
 		<?php foreach ($menus as $menu): ?>
-			<p><strong><?= $menu->name ?> (<?= $menu->slug ?>)</strong> [<a href="<?= $this->get_self_url(array('pages/edit/menu', $menu->id)) ?>">Edit</a>] [<a href="<?= $this->get_self_url(array('pages/delete/menu', $menu->id)) ?>" onclick="return confirm('Are you sure you wish to delete this menu and remove association to all pages?');">Delete</a>]</p>
+			<p><strong><?= $menu->name ?> (<?= $menu->slug ?>)</strong> [<a href="<?= $this->url_to_self(array('pages/edit/menu', $menu->id)) ?>">Edit</a>] [<a href="<?= $this->url_to_self(array('pages/delete/menu', $menu->id)) ?>" onclick="return confirm('Are you sure you wish to delete this menu and remove association to all pages?');">Delete</a>]</p>
 			<?= recursively_draw_sidebar_menu($this, $menu, $menu_pages); ?>
 		<?php endforeach; ?>
 		<?php if (count($orphans) > 0): ?>
@@ -88,4 +88,4 @@ foreach ($this->data['pages'] as $page)
 </div> <!-- #cms-sidebar -->
 
 
-<?php require_once($this->theme_path . '/inc/footer.php'); ?>
+<?php include($this->theme_path . '/inc/footer.php'); ?>

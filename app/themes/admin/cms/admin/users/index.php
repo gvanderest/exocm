@@ -13,7 +13,7 @@
 )); ?>
 
 <ul>
-	<li><a href="<?= $this->get_self_url(array('users/add')) ?>">Add User</a></li>
+	<li><a href="<?= $this->url_to_self(array('users/add')) ?>">Add User</a></li>
 </ul>
 
 <?php if (count($this->data['users']) == 0): ?>
@@ -35,8 +35,8 @@
 					<td><?= $user->first_name . ' ' . $user->last_name ?></td>
 					<td><?= $user->email ?></td>
 					<td>
-						<a href="<?= $this->get_self_url(array('users/edit/' . $user->id)); ?>">Edit</a> | 
-						<a onclick="return confirm('Are you sure you wish to delete this user?');" href="<?= $this->get_self_url(array('users/delete/' . $user->id)); ?>">Delete</a>
+						<a href="<?= $this->url_to_self(array('users/edit/' . $user->id)); ?>">Edit</a> | 
+						<a onclick="return confirm('Are you sure you wish to delete this user?');" href="<?= $this->url_to_self(array('users/delete/' . $user->id)); ?>">Delete</a>
 					</td>
 				</tr>
 			<?php endforeach; ?>

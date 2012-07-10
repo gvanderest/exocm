@@ -13,7 +13,7 @@
 )); ?>
 
 <ul>
-	<li><a href="<?= $this->get_self_url(array('galleries/add/gallery')) ?>">Add Gallery</a></li>
+	<li><a href="<?= $this->url_to_self(array('galleries/add/gallery')) ?>">Add Gallery</a></li>
 </ul>
 
 <?php if (count($this->data['galleries']) == 0): ?>
