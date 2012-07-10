@@ -13,7 +13,7 @@
 )); ?>
 
 <ul>
-	<li><a href="<?= $this->get_self_url(array('forms/add/form')) ?>">Add Form</a></li>
+	<li><a href="<?= $this->url_to_self(array('forms/add/form')) ?>">Add Form</a></li>
 </ul>
 
 <?php if (count($this->data['contact_forms']) == 0): ?>
