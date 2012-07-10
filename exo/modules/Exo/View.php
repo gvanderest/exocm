@@ -38,9 +38,9 @@ class View extends Entity
 
 		// find the format being used
 		$format = Renderer::DEFAULT_RENDERER_ID;
-		if (isset($this->request)) 
+		if ($this->application->request)
 		{ 
-			$format = $this->request->format; 
+			$format = $this->application->request->format; 
 		}
 
 		// insantiate renderer
