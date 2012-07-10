@@ -124,4 +124,14 @@ class HTML extends Renderer
 		}
 		throw new Exception('The method "' . $method . '" could not be found');
 	}
+
+	/**
+	 * Passthrough GET function to attempt to fetch from view
+	 * @param string $attribute
+	 * @return mixed
+	 */
+	public function __get($attribute)
+	{
+		return $this->view->$attribute;
+	}
 }
