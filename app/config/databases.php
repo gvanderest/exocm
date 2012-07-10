@@ -6,7 +6,7 @@
 
 use Exo\Database;
 
-Database::add('development', array(
+Database::add('dev', array(
 	'type' => 'mysql',
 	'host' => 'localhost',
 	'user' => 'root',
