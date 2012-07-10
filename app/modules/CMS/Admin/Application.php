@@ -3,7 +3,9 @@
  * CMS Administrative Application
  * @header
  */
-class CMS_Admin_Application extends Exo_Auth_Application
+use CMS_Application as Exo_Application;
+use Exo\Auth as Exo_Auth;
+class CMS_Admin_Application extends Exo\Auth\Application
 {
 	const FORGOTTEN_ARGUMENT = 'forgotten';
 	const LOGIN_ARGUMENT = 'login';
@@ -12,13 +14,15 @@ class CMS_Admin_Application extends Exo_Auth_Application
 	const DEFAULT_METHOD = 'index';
 
 	public $account;
+	protected $library;
 
 	public function __construct($request)
 	{
 		parent::__construct($request);
 
-		$this->library = new CMS_Library();
+		$this->library = new CMS_Library($this);
 		$this->view = new CMS_Admin_View($this);
+
 		$this->account = $this->auth->get_user_account();
 	}
 
@@ -45,8 +49,9 @@ class CMS_Admin_Application extends Exo_Auth_Application
 		throw new Exception('Not yet implemented');
 	}
 
-	public function index($request)
+	public function index()
 	{
+		$request = $this->request;
 		$admin_permission = $this->auth->user_has_permission('admin');
 
 		// if you do not have permission, redirect to login
@@ -113,7 +118,7 @@ class CMS_Admin_Application extends Exo_Auth_Application
 			}
 		}
 
-		return $this->view->render('cms/admin/login');
+		return $this->render('cms/admin/login');
 	}
 
 	public function admin($slug)
@@ -129,8 +134,6 @@ class CMS_Admin_Application extends Exo_Auth_Application
 			return $object->init($this->request);
 		}
 
-		$response = new Exo_NotFoundResponse();
-		$response->content = $this->view->render('error');
-		return $response;
+		return $this->error();
 	}
 }

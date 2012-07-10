@@ -6,10 +6,9 @@
 
 class CMS_Admin_PageAdmin extends CMS_Admin_Application
 {
-	const DEFAULT_TEMPLATE = 'default';
-
 	public function init($request)
 	{
+		$request = $this->request;
 		$action = @$request->arguments[1];
 		$noun = @$request->arguments[2];
 		$id = @$request->arguments[3];
@@ -61,7 +60,7 @@ class CMS_Admin_PageAdmin extends CMS_Admin_Application
 				$this->redirect_to_self(array('pages'));
 			}
 		}
-		return $this->view->render('cms/admin/menus/edit_menu');
+		return $this->render('cms/admin/menus/edit_menu');
 	}
 
 	public function add_menu()
@@ -81,7 +80,7 @@ class CMS_Admin_PageAdmin extends CMS_Admin_Application
 				}
 			}
 		}
-		return $this->view->render('cms/admin/menus/add_menu');
+		return $this->render('cms/admin/menus/add_menu');
 	}
 	
 	public function add_page()
@@ -212,6 +211,6 @@ class CMS_Admin_PageAdmin extends CMS_Admin_Application
 		$this->data['menus'] = $this->library->get_menus();
 		$this->data['menu_pages'] = $this->library->get_menu_pages();
 
-		return $this->view->render('cms/admin/pages/index');
+		return $this->render('cms/admin/pages/index');
 	}
 }

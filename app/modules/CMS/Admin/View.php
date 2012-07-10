@@ -4,21 +4,31 @@
  * @header
  */
 
-class CMS_Admin_View extends Exo_View 
+class CMS_Admin_View extends Exo\View 
 {
 	public $library;
 
 	public function __construct($application)
 	{
 		parent::__construct($application);
+		$this->library = new CMS_Library($application);
+	}
 
-		$this->library = new CMS_Library();
+	public function get_application_url($slug = array())
+	{
+		$url = $this->application->url_to_self($slug);
+		return $url;
+	}
+
+	public function get_logout_url()
+	{
+		$url = $this->application->url_to_self(array(CMS_Admin_Application::LOGOUT_ARGUMENT));
+		return $url;
 	}
 
 	public function get_home_url()
 	{
-		$loader = new Exo_Loader();
-		$url = $loader->get_route_url(array(CMS_Admin_Application::DEFAULT_ARGUMENT));
+		$url = $this->application->url_to_self(array());
 		return $url;
 	}
 
@@ -29,8 +39,7 @@ class CMS_Admin_View extends Exo_View
 			$slug = array($slug);
 		}
 
-		$loader = new Exo_Loader();
-		$url = $loader->get_route_url($slug);
+		$url = $this->application->get_route_url($slug);
 		return $url;
 	}
 
@@ -41,27 +50,7 @@ class CMS_Admin_View extends Exo_View
 			$args = array($args);
 		}
 		$args = array_merge(array($this->application->request->arguments[0]), $args);
-		$loader = new Exo_Loader();
-		return $loader->get_route_url($args);
-	}
-
-	public function get_application_url($slug = array())
-	{
-		if (is_string($slug))
-		{
-			$slug = array($slug);
-		}
-
-		$loader = new Exo_Loader();
-		$url = $loader->get_route_url($slug);
-		return $url;
-	}
-
-	public function get_logout_url()
-	{
-		$loader = new Exo_Loader();
-		$url = $loader->get_route_url(array(CMS_Admin_Application::LOGOUT_ARGUMENT));
-		return $url;
+		return $this->application->url_to_self($args);
 	}
 
 	public function display_applications_menu()
@@ -87,10 +76,7 @@ class CMS_Admin_View extends Exo_View
 			return '';
 		}
 
-		if (isset($this->application->request->arguments))
-		{
-			$app_slug = end($this->application->request->arguments);
-		}
+		$app_slug = end($this->application->request->arguments);
 
 		$output = '';
 		$output .= '<ul>';
