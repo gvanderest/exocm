@@ -65,6 +65,7 @@ class HTML extends Renderer
 		$this->theme_url = $this->_get_theme_url();
 		$this->template_path = $this->_get_theme_path() . '/' . $this->template . '.php';
 		$this->data = $data;
+
 		if ($this->application)
 		{
 			// TODO: replace this with Exo\Module::get_namespace($this->application)
