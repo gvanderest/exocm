@@ -26,9 +26,9 @@ class Renderer extends Entity
 
 	/**
 	 * The application that instantiated the renderer
-	 * @var Exo\Application
+	 * @var Exo\View
 	 */
-	protected $application;
+	protected $view;
 
 	/**
 	 * The renderers that can be loaded
@@ -41,9 +41,9 @@ class Renderer extends Entity
 	 * @param Exo\View $view
 	 * @return void
 	 */
-	public function __construct($application = NULL)
+	public function __construct($view = NULL)
 	{
-		$this->application = $application;
+		$this->view = $view;
 	}
 
 	/**
