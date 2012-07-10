@@ -46,9 +46,9 @@ class Route
 	 */
 	public static function get($request = NULL)
 	{
-		if (is_null($request))
+		if ($request === NULL)
 		{
-			throw new NYI();
+			$request = Request::get();
 		}
 
 		if (is_string($request))

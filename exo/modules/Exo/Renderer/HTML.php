@@ -50,14 +50,14 @@ class HTML extends Renderer
 		return \Exo\APP_THEMES_PATH . '/' . $this->theme;
 	}
 
-	public function render($data)
+	public function render($data = array())
 	{
-		$this->theme = $this->application->route->theme;
+		$this->theme = $this->view->application->route->theme;
 		$this->theme_path = $this->_get_theme_path();
 		$this->theme_url = $this->_get_theme_url();
 		$this->template_path = $this->_get_theme_path() . '/' . $this->template . '.php';
-
 		$this->data = $data;
+
 		unset($data);
 		foreach ($this->data as $__key => $__value)
 		{
@@ -106,7 +106,22 @@ class HTML extends Renderer
 	 */
 	public function url_to_self($args = array())
 	{
-		$request = $this->application->request;
+		$request = $this->view->application->request;
 		return $this->url_to_route($request->route, $args);
+	}
+
+	/**
+	 * Call a method, passthrough to application
+	 * @param string $method
+	 * @param array $arguments (optional)
+	 * @return mixed
+	 */
+	public function __call($method, $args = array())
+	{
+		if (method_exists($this->view, $method))
+		{
+			return call_user_func_array(array($this->view, $method), $args);
+		}
+		throw new Exception('The method "' . $method . '" could not be found');
 	}
 }

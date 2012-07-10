@@ -86,7 +86,7 @@ class Exo
 			<tr>
 				<th>Trace</th>
 				<td><?php foreach ($e->getTrace() as $step): ?>
-<?= $step['file'] ?> (<?= $step['line'] ?>): <?= $step['class'] . $step['type'] . $step['function'] ?>()
+<?= @$step['file'] ?> (<?= $step['line'] ?>): <?= @$step['class'] . @$step['type'] . @$step['function'] ?>()
 <?php endforeach; ?>
 				</td>
 			</tr>
