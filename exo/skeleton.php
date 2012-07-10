@@ -194,6 +194,15 @@ class Exo
 			error_reporting($env->debug);
 		}
 
+		$session_length = 7200;
+		if (isset($env->session_length))
+		{
+			$session_length = $env->session_length;
+		}
+		ini_set('session.gc_maxlifetime', $session_length);
+		ini_set('session.gc_probability', 1);
+		ini_set('session.gc_divisor', 1);
+
 		// if the environment isn't using the correct hostname (on GET), redirect
 		if (is_array($env->host))
 		{
@@ -258,14 +267,75 @@ class Exo
 			}
 			$method = self::ERROR_METHOD;
 		}
-		$response = $object->$method();
 
+		// check for cached version if possible
+		if (isset($route->cache))
+		{
+			$response = self::get_cache($request, $route->cache);
+			if ($response)
+			{
+				return $response;
+			}
+		}
+
+		$response = $object->$method();
 		if (!$response instanceof Response)
 		{
 			$response = new Response($response);
 		}
 
+		// save a cached version if caching is enabled
+		if (isset($route->cache))
+		{
+			self::save_cache($request, $response);
+		}
+
 		return $response;
+	}
+
+	/**
+	 * Get cache hash
+	 * @param Exo\Request $request
+	 * @return string
+	 */
+	public function get_cache_hash($request)
+	{
+		return md5($request->string . '?' . http_build_query($request->arguments));
+	}
+
+	/**
+	 * Get a cached version of the request
+	 * @param Exo\Request $request
+	 * @param int $age in seconds
+	 * @return object response
+	 */
+	public function get_cache($request, $age)
+	{
+		$path = \Exo\CACHE_PATH . '/' . self::get_cache_hash($request);
+		if (file_exists($path) && time() - filemtime($path) < $age)
+		{
+			$object = unserialize(file_get_contents($path));
+			return $object;
+		}
+		return NULL;
+	}
+
+	/**
+	 * Save a copy of the response to the cache
+	 * @param Exo\Request $request
+	 * @param Exo\Response $response
+	 * @param void
+	 */
+	public function save_cache($request, $response)
+	{
+		$path = \Exo\CACHE_PATH . '/' . self::get_cache_hash($request);
+		$folder = dirname($path);
+
+		@mkdir($folder, 0777, TRUE);
+		if (!is_writable($folder)) { throw new Exception('Unable to write to cache folder: ' . $folder); }
+
+		$string = serialize($response);
+		file_put_contents($path, $string);
 	}
 
 	/**

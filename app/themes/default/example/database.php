@@ -8,6 +8,6 @@
 <?php var_dump($results); ?>
 </pre>
 
-<p>If you are interested in a little more <i>magic</i> than writing SQL yourself, <a href="http://exodus.io/orm">Existence</a> is a project I've been tryinf to work on for a little while</p>
+<p>If you are interested in a little more <i>magic</i> than writing SQL yourself, <a href="http://exodus.io/orm">Existence</a></p>
 
 <?php include($this->theme_path . '/inc/footer.php'); ?>

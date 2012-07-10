@@ -32,7 +32,8 @@ class Connection extends PDO
 		$database = Database::get($id);
 		$dsn = $database->type . ':dbname=' . $database->name . ';host=' . $database->host;
 		parent::__construct($dsn, $database->user, $database->password);
-		$this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+		parent::setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+		parent::setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
 	/**

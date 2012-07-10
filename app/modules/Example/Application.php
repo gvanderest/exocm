@@ -22,7 +22,7 @@ class Application extends App
 		$query = $db->prepare($sql);
 		$result = $query->execute();
 
-		$this->data['results'] = $query->fetchAll(PDO::FETCH_OBJ);
+		$this->data['results'] = $query->fetchAll();
 
 		return $this->render('example/database');
 	}
@@ -57,6 +57,12 @@ class Application extends App
 			)
 		);
 		return $this->render('example/format');
+	}
+
+	public function get_cache()
+	{
+		sleep(1);
+		return $this->render('example/cache');
 	}
 
 	public function hello_world()
