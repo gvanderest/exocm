@@ -5,7 +5,7 @@
 	<div id="slider">
 		<?php $library = new CMS_Library(); ?>
 		<?php foreach ($library->get_gallery_images('home-slider') as $pic): ?>
-			<img src="<?= EXO_ASSETS_URL ?>/galleries/<?= $pic->gallery_id ?>/<?= $pic->filename ?>" alt="" />
+			<img src="<?= \Exo\ASSETS_URL ?>/galleries/<?= $pic->gallery_id ?>/<?= $pic->filename ?>" alt="" />
 		<?php endforeach; ?>
 	</div>
 </div><!-- end #slider-container -->
