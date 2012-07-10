@@ -1,0 +1,43 @@
+/**
+ * Exodus Media
+ * @author Guillaume VanderEst <gui@exo.me>
+ */
+
+@import 'reset.css';
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700);
+
+/** colors and images **/
+body { background: #111; }
+#wrapper { background: #eee url(../img/background-tile.png); }
+#container { background: #fff; border-top: 5px solid #bd0; box-shadow: 0 0 10px #ccc; }
+#body > h1 { color: #555; }
+#menu a:hover { color: #000; }
+#footer { background: #111; color: #555; }
+#footer a { color: #555; }
+
+/** sizes **/
+#container, #footer-content { width: 960px; }
+
+/** fonts **/
+body { font-size: 14px; font-family: 'Droid Serif', serif; line-height: 1.6; }
+#menu { font-family: 'Open Sans', sans-serif; }
+#footer { font-size: 13px; }
+
+/** styles **/
+#container { margin: 0 auto; }
+#body > h1 { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; box-shadow: 0 0 -5px #ddd; background: #eee; margin: -30px -30px 15px -30px; padding: 30px; font-weight: normal; font-size: 16px; }
+
+#logo { margin: 30px; }
+#logo img { max-width: 120px; max-height: 50px; }
+
+#header { position: relative; overflow: hidden; }
+#menu { position: absolute; top: 30px; right: 30px; }
+#menu > ul > li { display: inline; margin-left: 30px; }
+#menu > ul > li:first-child { margin-left: 0; }
+#menu a { color: #222; text-decoration: none; }
+
+#body { padding: 30px; }
+
+#footer { position: relative; }
+#footer-content { margin: 0 auto; padding: 30px; }
