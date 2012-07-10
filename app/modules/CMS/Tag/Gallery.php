@@ -27,7 +27,7 @@ class CMS_Tag_Gallery extends CMS_Tag
 			<?php if (count($images) > 0): ?>
 				<ul class="images">
 					<?php foreach ($images as $image): ?>
-						<?php $url = EXO_ASSETS_URL . '/galleries/' . $gallery->id . '/' . $image->filename; ?>
+						<?php $url = \Exo\ASSETS_URL . '/galleries/' . $gallery->id . '/' . $image->filename; ?>
 						<li><a href="<?= $url ?>" target="_blank"><img src="<?= $url ?>" alt="" /></a></li>
 					<?php endforeach; ?>
 				</ul>

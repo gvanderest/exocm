@@ -13,11 +13,13 @@ class CMS_Library
 	const PAGE_VERSIONS_KEPT = 5;
 
 	public $assets_base_path = NULL;
+	protected $application;
 
-	public function __construct()
+	public function __construct($application = NULL)
 	{
 		$this->db = new Exo\Database\Connection();
 		$this->assets_base_path = Exo\EXO_PATH . '/app/assets';
+		$this->application = $application;
 	}
 
 	/**
@@ -59,7 +61,7 @@ class CMS_Library
 	 */
 	public function get_users()
 	{
-		return $this->db->select('cms_users', array());
+		return $this->db->select('cms_users');
 	}
 
 	/**
@@ -176,12 +178,11 @@ class CMS_Library
 
 		if ($theme === NULL)
 		{
-			$loader = new Exo_Loader();
-			$route = $loader->get_default_route();
+			$route = \Exo\Route::get('default');
 			$theme = $route->theme;
 		}
 
-		$path = EXO_BASE_PATH . '/app/themes/' . $theme . '/cms';
+		$path = \Exo\APP_THEMES_PATH . '/' . $theme . '/cms';
 		$dh = opendir($path);
 		while ($entry = readdir($dh))
 		{
@@ -356,8 +357,8 @@ class CMS_Library
 	public function get_module($namespace)
 	{
 		$paths = array(
-			EXO_BASE_PATH . '/app/modules/' . $namespace . '/module.xml',
-			EXO_BASE_PATH . '/exo/modules/' . $namespace . '/module.xml'
+			\Exo\EXO_PATH . '/app/modules/' . $namespace . '/module.xml',
+			\Exo\EXO_PATH . '/exo/modules/' . $namespace . '/module.xml'
 		);
 		foreach ($paths as $path)
 		{
@@ -428,7 +429,7 @@ class CMS_Library
 			SELECT M.*
 			FROM cms_menus M
 		";
-		$result = $this->db->get_all_indexed($sql);
+		$result = $this->db->get_all($sql);
 		return $result;
 	}
 

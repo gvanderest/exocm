@@ -45,7 +45,7 @@ class CMS_GalleryAdmin extends CMS_Admin_Application
 		$this->data['gallery'] = $gallery = $this->library->get_gallery($id);
 		$this->data['image_form'] = $image_form = new CMS_GalleryImageAddForm();
 		$gallery_form->set_default_data($gallery);
-		$image_form->filename->set_upload_path(EXO_ASSETS_PATH . '/galleries/' . $id);
+		$image_form->filename->set_upload_path(\Exo\ASSETS_PATH . '/galleries/' . $id);
 
 		if ($gallery_form->is_submitted())
 		{

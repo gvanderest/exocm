@@ -13,8 +13,8 @@ class CMS_Application extends Exo\Application
 	public function __construct($request)
 	{
 		parent::__construct($request);
+		$this->library = new CMS_Library($this);
 		$this->view = new CMS_View($this);
-		$this->library = new CMS_Library();
 	}
 
 	public function index()
@@ -31,12 +31,12 @@ class CMS_Application extends Exo\Application
 
 		if (!$page)
 		{
-			$response = $this->view->render('cms/error');
+			$response = $this->render('cms/error');
 			return $response;
 		}
 
 		$this->data['page'] = $response->data['page'] = $page;
-		$response = $this->view->render('cms/' . $page->template, $response->data);
+		$response = $this->render('cms/' . $page->template, $response->data);
 		return $response;
 	}
 }

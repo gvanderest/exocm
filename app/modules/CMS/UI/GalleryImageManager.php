@@ -71,7 +71,7 @@ class CMS_UI_GalleryImageManager extends ExoUI_Object
 						<?php $rank = new ExoUI_Textbox($image->id . '_rank', array('label' => 'Rank')); ?>
 						<?php $rank->set_value($image->rank); ?>
 						<div class="image">
-							<div class="image"><img src="<?= EXO_ASSETS_URL ?>/galleries/<?= $image->gallery_id ?>/<?= $image->filename ?>" alt="" /></div>
+							<div class="image"><img src="<?= \Exo\ASSETS_URL ?>/galleries/<?= $image->gallery_id ?>/<?= $image->filename ?>" alt="" /></div>
 							<div class="rank">Rank: <?= $rank->display_raw() ?></div> <!-- .rank -->
 							<div class="delete"><?= $delete->display_raw() ?></div> <!-- .rank -->
 						</div> <!-- .image -->
