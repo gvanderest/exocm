@@ -1,0 +1,3 @@
+[submodule "app/modules/ExoUI"]
+	path = app/modules/ExoUI
+	url = git://github.com/exoduslabs/ExoUI.git
