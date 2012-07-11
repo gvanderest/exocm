@@ -50,7 +50,12 @@ class XML extends Renderer
 				$output .= $this->recurse_xml($value, $indent + 1, $recursion_proof);
 				$output .= str_repeat('  ', $indent);
 			} else {
-				$output .= $value;
+				if (is_numeric($value))
+				{
+					$output .= $value;
+				} else {
+					$output .= '<![CDATA[' . $value . ']]>';
+				}
 			}
 			$output .= sprintf('</%s>', $key) . "\n";
 		}
