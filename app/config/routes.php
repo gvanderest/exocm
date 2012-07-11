@@ -3,7 +3,6 @@
  * Route Configurations
  * @author Guillaume VanderEst <guillaume@vanderest.org>
  */
-
 use Exo\Route;
 
 // RESTful application

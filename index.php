@@ -20,6 +20,8 @@ define('Exo\APP_THEMES_URL', Exo\APP_URL . '/themes');
 define('Exo\ASSETS_PATH', Exo\APP_PATH . '/assets');
 define('Exo\ASSETS_URL', Exo\APP_URL . '/assets');
 define('Exo\CACHE_PATH', Exo\APP_PATH . '/cache');
+define('Exo\ASSETS_PATH', Exo\APP_PATH . '/assets');
+define('Exo\ASSETS_URL', Exo\APP_URL . '/assets');
 
 // execute framework
 Exo::execute();

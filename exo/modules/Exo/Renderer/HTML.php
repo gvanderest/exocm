@@ -12,6 +12,8 @@ use Exo\Route;
 
 class HTML extends Renderer
 {
+	const DEFAULT_TEMPLATE = 'default';
+
 	/**
 	 * Template name
 	 * @var string
@@ -31,6 +33,12 @@ class HTML extends Renderer
 	protected $template_path;
 	protected $theme_url;
 	protected $theme_path;
+
+	/**
+	 * The namespace of the application 
+	 * @var string
+	 */
+	protected $application_namespace;
 
 	/**
 	 * Get the URL to the theme (usually used from inside a template)
@@ -58,6 +66,12 @@ class HTML extends Renderer
 		$this->template_path = $this->_get_theme_path() . '/' . $this->template . '.php';
 		$this->data = $data;
 
+		if ($this->application)
+		{
+			// TODO: replace this with Exo\Module::get_namespace($this->application)
+			$this->application_namespace = reset(explode('_', str_replace('\\', '_', get_class($this->application))));
+		}
+
 		unset($data);
 		foreach ($this->data as $__key => $__value)
 		{
@@ -66,19 +80,30 @@ class HTML extends Renderer
 		unset($__key);
 		unset($__value);
 
-		// the file does not exist
+		$response = new Response;
+		$response->content_type = 'text/html';
+
+		// the file does not exist, try to fall back and pass to "default.php" of theme
 		if (!file_exists($this->template_path))
 		{
-			throw new Exception('The requested template "' . $this->theme . '/' . $this->template . '" could not be found');
+			ob_start();
+			$this->template_path = \Exo\APP_MODULES_PATH . '/' . $this->application_namespace . '/templates/' . $this->template . '.php';
+			
+			if (!file_exists($this->template_path))
+			{
+				throw new Exception('Template "' . $this->template .'" could not be loaded and a default template could not be found');
+			}
+
+			include($this->template_path);
+			$this->data['content'] = $content = ob_get_clean();
+			$this->template_path = $this->_get_theme_path() . '/' . self::DEFAULT_TEMPLATE . '.php';
 		}
 
 		ob_start();
 		include($this->template_path);
 		$output = ob_get_clean();
 
-		$response = new Response;
 		$response->content = $output;
-		$response->content_type = 'text/html';
 		return $response;
 	}
 
@@ -123,5 +148,15 @@ class HTML extends Renderer
 			return call_user_func_array(array($this->view, $method), $args);
 		}
 		throw new Exception('The method "' . $method . '" could not be found');
+	}
+
+	/**
+	 * Passthrough GET function to attempt to fetch from view
+	 * @param string $attribute
+	 * @return mixed
+	 */
+	public function __get($attribute)
+	{
+		return $this->view->$attribute;
 	}
 }
