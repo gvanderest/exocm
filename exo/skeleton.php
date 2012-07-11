@@ -4,6 +4,7 @@
  * @author Guillaume VanderEst <guillaume@vanderest.org>
  * @package exo
  */
+use Exo\Cache;
 use Exo\Environment;
 use Exo\Request;
 use Exo\Response;
@@ -271,7 +272,8 @@ class Exo
 		// check for cached version if possible
 		if (isset($route->cache))
 		{
-			$response = self::get_cache($request, $route->cache);
+			$cache = new Cache(\Exo\CACHE_PATH);
+			$response = $cache->get($request, $route->cache);
 			if ($response)
 			{
 				return $response;
@@ -287,55 +289,10 @@ class Exo
 		// save a cached version if caching is enabled
 		if (isset($route->cache))
 		{
-			self::save_cache($request, $response);
+			$cache->save($request, $response);
 		}
 
 		return $response;
-	}
-
-	/**
-	 * Get cache hash
-	 * @param Exo\Request $request
-	 * @return string
-	 */
-	public function get_cache_hash($request)
-	{
-		return md5($request->string . '?' . http_build_query($request->arguments));
-	}
-
-	/**
-	 * Get a cached version of the request
-	 * @param Exo\Request $request
-	 * @param int $age in seconds
-	 * @return object response
-	 */
-	public function get_cache($request, $age)
-	{
-		$path = \Exo\CACHE_PATH . '/' . self::get_cache_hash($request);
-		if (file_exists($path) && time() - filemtime($path) < $age)
-		{
-			$object = unserialize(file_get_contents($path));
-			return $object;
-		}
-		return NULL;
-	}
-
-	/**
-	 * Save a copy of the response to the cache
-	 * @param Exo\Request $request
-	 * @param Exo\Response $response
-	 * @param void
-	 */
-	public function save_cache($request, $response)
-	{
-		$path = \Exo\CACHE_PATH . '/' . self::get_cache_hash($request);
-		$folder = dirname($path);
-
-		@mkdir($folder, 0777, TRUE);
-		if (!is_writable($folder)) { throw new Exception('Unable to write to cache folder: ' . $folder); }
-
-		$string = serialize($response);
-		file_put_contents($path, $string);
 	}
 
 	/**

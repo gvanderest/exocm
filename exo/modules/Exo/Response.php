@@ -33,6 +33,12 @@ class Response extends Entity
 	protected $http_code = self::HTTP_OK_CODE;
 
 	/**
+	 * HTTP headers
+	 * @var array
+	 */
+	protected $http_headers = array();
+
+	/**
 	 * The HTTP message the request should responsd with
 	 * @var string
 	 */
@@ -57,6 +63,11 @@ class Response extends Entity
 		if (headers_sent())
 		{
 			return;
+		}
+
+		foreach ($this->http_headers as $header)
+		{
+			header($header);
 		}
 
 		header(sprintf("Content-type: %s",
