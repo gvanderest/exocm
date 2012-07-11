@@ -18,5 +18,6 @@ Route::add('cms_admin', array(
 Route::add('default', array(
 	'class' => 'CMS_Application',
 	'method' => 'index',
+	'cache' => 10,
 	'theme' => 'exodus'
 ));
