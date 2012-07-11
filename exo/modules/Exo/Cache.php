@@ -6,7 +6,7 @@
 namespace Exo;
 class Cache extends Entity
 {
-	const MAX_AGE = 2592000; // 30 days
+	const MAX_AGE = 86400; // 1 day
 
 	/**
 	 * @var path to caching folder (writable)
