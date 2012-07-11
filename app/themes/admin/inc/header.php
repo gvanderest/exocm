@@ -14,7 +14,7 @@
 		<div id="header">
 			<div id="title">
 				<h1><a href="<?= $this->get_home_url(); ?>"><?= $_cms_title ?></a></h1>
-				<p class="subtitle"><?= $_cms_subtitle ?></p>
+				<?php if (isset($_cms_subtitle)) : ?><p class="subtitle"><?= $_cms_subtitle ?></p><?php endif; ?>
 			</div> 
 			<div id="menu"><?= $this->display_applications_menu(); ?></div>
 			<div id="preview"><a href="/" target="_blank">View Website (<?= $_SERVER['HTTP_HOST'] ?>) &rarr;</a></div> <!-- #preview -->

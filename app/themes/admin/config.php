@@ -1,15 +1,17 @@
 <?php
-$_cms_title = 'Pulse<strong>Group</strong>';
-$_cms_title_suffix = 'Pulse Group';
-$_cms_company = 'Pulse Group';
-$_cms_company_url = 'http://www.pulsegroup.ca';
+$_cms_info = array(
+	'exodus' => array(
+		'title' => 'exo<strong>cm</strong>', 
+		'subtitle' => 'Content Management System',
+		'title_suffix' => 'ExoCM',
+		'company' => 'Exodus Media',
+		'company_url' => 'http://exo.me/'
+	)
+);
 
-$_cms_title = 'exo<strong>cm</strong>';
-$_cms_title_suffix = 'ExoCM';
-$_cms_company = 'Exodus Labs';
-$_cms_company_url = 'http://www.exoduslabs.ca';
-
-$_cms_title = 'Graphic<strong>Depictions</strong>';
-$_cms_title_suffix = 'Graphic Depictions';
-$_cms_company = 'Graphic Depictions';
-$_cms_company_url = 'http://www.graphicdepictions.ca';
+$_cms_info_index = 'exodus';
+foreach ($_cms_info[$_cms_info_index] as $key => $value)
+{
+	$field = '_cms_' . $key;
+	$$field = $value;
+}
