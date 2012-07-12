@@ -112,10 +112,26 @@ class Connection extends PDO
 	}
 
 	/**
+	 * Select one result from a query
+	 * @param string $table
+	 * @param array $options (optional)
+	 * @return object or NULL on failure
+	 */
+	public function select_one($table, $options = array())
+	{
+		if (is_array($options))
+		{
+			$options = array_merge($options, array(
+				'amount' => 1
+			));
+		}
+		return $this->select($table, $options);
+	}
+
+	/**
 	 * Perform a select
 	 * @param string $table
 	 * @param array $options (optional) array(
-	 *	
 	 * )
 	 */
 	public function select($table, $options = array())
