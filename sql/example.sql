@@ -6,3 +6,4 @@ CREATE TABLE test (
 
 INSERT INTO test VALUES ('', 'Gui');
 
+
