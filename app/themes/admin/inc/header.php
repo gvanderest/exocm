@@ -22,7 +22,7 @@
 			<?php if ($account): ?>
 				<div id="account">
 					<?php if ($account->photo): ?>
-						<div class="portrait"><img src="<?= EXO_ASSETS_URL ?>/users/<?= $account->id ?>/<?= $account->photo ?>" alt="" /></div>
+						<div class="portrait"><img src="<?= $this->get_account_photo_url($account) ?>" alt="" /></div>
 					<?php else: ?>
 						<div class="portrait"><img src="<?= $this->theme_url ?>/img/no-portrait.jpg" alt="" /></div>
 					<?php endif; ?>

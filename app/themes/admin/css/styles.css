@@ -15,9 +15,9 @@ ul li { list-style: outside square; }
 ol ul { list-style: outside decimal; }
 ul ul, ol ol { margin-bottom: 0; }
 
-.Exo_Errors { border: 1px solid #800; background-color: #fee; padding: 10px 20px 10px 20px; color: #800; margin-bottom: 15px; }
-.Exo_Errors > ul { margin-left: 20px; }
-.Exo_Errors > ul > li { list-style: square outside; display: list-item; }
+.Exo_Error { border: 1px solid #800; background-color: #fee; padding: 10px 20px 10px 20px; color: #800; margin-bottom: 15px; }
+.Exo_Error > ul { margin-left: 20px; }
+.Exo_Error > ul > li { list-style: square outside; display: list-item; }
 .ExoUI_HTMLEditor textarea, .ExoUI_Textarea textarea, .ExoUI_Textbox input, .ExoUI_Password input, .ExoUI_CurrencyTextbox input { border: 1px solid #ccc; border-radius: 3px; padding: 2px 5px 2px 5px; font-size: 12px; }
 .ExoUI_CurrencyTextbox input { padding-left: 20px; }
 .ExoUI_CurrencyTextbox .symbol { position: absolute; margin-left: 10px; margin-top: 2px; color: #999; font-style: normal; }
