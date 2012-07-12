@@ -1,0 +1,21 @@
+/**
+ * Koch Ink Stylesheet
+ * @author Guillaume VanderEst <guillaume@vanderest.org>
+ */
+
+body { background: #ccc !important; }
+a { color: #E37222; }
+#copyright { color: #000; }
+#account .greeting { font-weight: bold; }
+#title .subtitle, #account .email { color: #000 !important; }
+#title em, #login h1 em { font-style: normal !important; color: #C90061 !important; }
+#login h1, #title, #header a { color: #C90061 !important; }
+#menu a { color: #000 !important; }
+#title a { color: #E37222 !important; }
+#header { background: #ccc !important; border-bottom: 3px solid #aaa !important; color: #000 !important; }
+#footer { background: #ccc !important; border-top: 3px solid #aaa !important; color: #000 !important; }
+#footer em { color: #555 !important; }
+#footer a { color: #555 !important; }
+
+#login #header { border-bottom: 0px none !important; }
+#login #footer { border-top: 0px none !important; }

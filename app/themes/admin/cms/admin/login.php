@@ -6,6 +6,7 @@
 		<meta charset="utf-8" />
 		<link rel="stylesheet" type="text/css" href="<?= $this->theme_url ?>/css/styles.css" />
 		<script src="<?= $this->theme_url ?>/js/jquery.js"></script>
+		<?php if (isset($_cms_custom_css)): ?><link rel="stylesheet" href="<?= $this->theme_url ?>/css/<?= $_cms_custom_css ?>" /><?php endif; ?>
 	</head>
 	<body id="login">
 
