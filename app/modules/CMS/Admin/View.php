@@ -16,7 +16,7 @@ class CMS_Admin_View extends Exo\View
 
 	public function get_account_photo_url($account)
 	{
-		return 'test';
+		return \Exo\ASSETS_URL . '/accounts/' . $account->id . '/' . $account->photo;
 	}
 
 	public function get_application_url($slug = array())
