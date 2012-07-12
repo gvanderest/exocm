@@ -15,6 +15,12 @@ class Application extends Entity
 	protected $data = array();
 
 	/**
+	 * Error handler for application
+	 * @var Exo\Error
+	 */
+	protected $errors;
+
+	/**
 	 * The request for this application
 	 * @var Exo\Request
 	 */
@@ -41,6 +47,7 @@ class Application extends Entity
 		$this->request = $request;
 		$this->route = $this->request->route;
 		$this->view = new View($this);
+		$this->errors = new Error();
 	}
 
 	/**
