@@ -33,7 +33,7 @@ class CMS_UserAdmin extends CMS_Admin_Application
 
 			if ($result)
 			{
-				$form->photo->set_upload_path(EXO_ASSETS_PATH . '/users/' . $result);
+				$form->photo->set_upload_path(EXO_ASSETS_PATH . '/accounts/' . $result);
 				$form->photo->move_file();
 				$this->redirect_to_self(array('users'));
 			} else {
@@ -51,7 +51,7 @@ class CMS_UserAdmin extends CMS_Admin_Application
 			'application' => $this
 		));
 		$form->set_default_data($user);
-		$form->photo->set_upload_path(\Exo\ASSETS_PATH . '/users/' . $id);
+		$form->photo->set_upload_path(\Exo\ASSETS_PATH . '/accounts/' . $id);
 
 		if ($form->is_submitted() && $form->is_valid())
 		{
