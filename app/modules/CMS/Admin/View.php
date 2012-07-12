@@ -14,6 +14,11 @@ class CMS_Admin_View extends Exo\View
 		$this->library = new CMS_Library($application);
 	}
 
+	public function get_account_photo_url($account)
+	{
+		return 'test';
+	}
+
 	public function get_application_url($slug = array())
 	{
 		$url = $this->application->url_to_self($slug);

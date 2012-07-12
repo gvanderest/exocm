@@ -62,7 +62,7 @@ class CMS_Admin_Application extends Exo\Auth\Application
 				$method = $request->arguments[0];
 				return $this->$method();
 			} else {
-				$this->redirect_to_self(array(self::LOGIN_ARGUMENT, 'r' => $request->url));
+				$this->redirect_to_self(array(self::LOGIN_ARGUMENT, 'r' => $request->string));
 			}
 		}
 

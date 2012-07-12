@@ -29,7 +29,7 @@ class CMS_Library
 	 */
 	public function add_user($data)
 	{
-		return $this->db->insert('cms_users', $data);
+		return $this->db->insert('users', $data);
 	}	
 
 	/**
@@ -42,7 +42,7 @@ class CMS_Library
 	{
 		if (empty($data->password)) { unset($data->password); }
 
-		return $this->db->update('cms_users', $id, $data);
+		return $this->db->update('users', $id, $data);
 	}	
 
 	/**
@@ -52,7 +52,7 @@ class CMS_Library
 	 */
 	public function get_user($id)
 	{
-		return $this->db->select('cms_users', $id);
+		return $this->db->select('users', $id);
 	}
 
 	/**
@@ -61,7 +61,7 @@ class CMS_Library
 	 */
 	public function get_users()
 	{
-		return $this->db->select('cms_users');
+		return $this->db->select('users');
 	}
 
 	/**
