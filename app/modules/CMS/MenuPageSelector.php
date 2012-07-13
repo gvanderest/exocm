@@ -32,7 +32,7 @@ class CMS_MenuPageSelector extends ExoUI_DataObject
 	{
 		if ($parent_id == 0)
 		{
-			$obj->add_option('Root', 0);
+			$obj->add_option(0, 'Root');
 		}
 
 		foreach ($items as $item)
@@ -44,7 +44,7 @@ class CMS_MenuPageSelector extends ExoUI_DataObject
 
 			if ($item->parent_id == $parent_id)
 			{
-				$obj->add_option(str_repeat('-', $depth) . ' ' . $item->menu_page_title . ($item->menu_page_rank > 0 ? (' - Rank: ' . $item->menu_page_rank) : ''), $item->menu_page_id);
+				$obj->add_option($item->menu_page_id, str_repeat('-', $depth) . ' ' . $item->menu_page_title . ($item->menu_page_rank > 0 ? (' - Rank: ' . $item->menu_page_rank) : ''));
 				$this->populate_with_parents($obj, $items, $item->menu_page_id, $depth + 1);
 			}
 		}
@@ -113,7 +113,7 @@ class CMS_MenuPageSelector extends ExoUI_DataObject
 				'label' => 'Active',
 				'return' => 'boolean'
 			));
-			$active->add_option($menu->name, 1);
+			$active->add_option(1, $menu->name);
 
 			$parent = new ExoUI_Select('parent_' . $menu->id, array(
 				'label' => 'Parent'

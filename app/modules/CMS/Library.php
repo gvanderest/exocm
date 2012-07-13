@@ -18,7 +18,7 @@ class CMS_Library
 	public function __construct($application = NULL)
 	{
 		$this->db = new Exo\Database\Connection();
-		$this->assets_base_path = Exo\EXO_PATH . '/app/assets';
+		$this->assets_base_path = \Exo\ASSETS_PATH;
 		$this->application = $application;
 	}
 
@@ -676,12 +676,18 @@ class CMS_Library
 	 */
 	public function recursively_delete_folder($path)
 	{
-		foreach(glob($path . '/*') as $file) 
+		$files = glob($path . '/*');
+		if (is_array($files))
 		{
-			if(is_dir($file))
-				$this->recursively_delete_folder($file);
-			else
-				unlink($file);
+			foreach($files as $file) 
+			{
+				if(is_dir($file))
+				{
+					$this->recursively_delete_folder($file);
+				} else {
+					unlink($file);
+				}
+			}
 		}
 		rmdir($path);
 	}

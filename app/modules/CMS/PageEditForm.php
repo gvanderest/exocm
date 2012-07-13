@@ -28,7 +28,7 @@ class CMS_PageEditForm extends CMS_Form
 		$this->template = new ExoUI_Select('template');
 		foreach ($this->library->get_templates() as $template)
 		{
-			$this->template->add_option(ucwords($template->name), $template->name);
+			$this->template->add_option($template->name, ucwords($template->name));
 		}
 
 		$this->menu_pages = new CMS_MenuPageSelector('menu_pages', array(

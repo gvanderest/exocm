@@ -34,7 +34,7 @@ class CMS_UI_GalleryImageManager extends ExoUI_Object
 
 				if (array_key_exists($image->id . '_rank', $_POST))
 				{
-					$library->edit_gallery_image($image->id, (object)array('rank' => $_POST[$image->id . '_rank']));
+					$library->edit_gallery_image($image->id, array('rank' => $_POST[$image->id . '_rank']));
 				}
 			}
 		}

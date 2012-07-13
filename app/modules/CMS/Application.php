@@ -7,6 +7,7 @@ use Exo\Error\Response as Exo_NotFoundResponse;
 class CMS_Application extends Exo\Application
 {
 	const DEFAULT_PAGE_SLUG = 'home';
+	const DEFAULT_TEMPLATE = 'default';
 
 	public $library;
 
@@ -36,7 +37,15 @@ class CMS_Application extends Exo\Application
 		}
 
 		$this->data['page'] = $response->data['page'] = $page;
-		$response = $this->render('cms/' . $page->template, $response->data);
+		try
+		{
+			$response = $this->render('cms/' . $page->template, $response->data);
+		} 
+		// fall back to default template
+		catch (Exception $e) {
+
+			$response = $this->render('cms/' . self::DEFAULT_TEMPLATE, $response->data);
+		}
 		return $response;
 	}
 }
