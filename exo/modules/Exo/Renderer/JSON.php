@@ -16,7 +16,7 @@ class JSON extends Renderer
 	{
 		$response = new Response();
 		$response->content_type = 'text/json';
-		$response->content = json_encode($data);
+		$response->content = @json_encode($data);
 		return $response;
 	}
 }

@@ -30,11 +30,14 @@ class XML extends Renderer
 		return $response;
 	}
 
-	public function recurse_xml($array, $indent = 1)
+	public function recurse_xml($array, $indent = 1, $recursion_proof = array())
 	{
 		$output = '';
 		foreach ($array as $key => $value)
 		{
+			if (@in_array($value, $recursion_proof)) { continue; }
+			$recursion_proof[] = $value;
+
 			if (is_numeric($key)) { $key = 'element_' . $key; }
 
 			$output .= sprintf('%s<%s>', 
@@ -44,10 +47,15 @@ class XML extends Renderer
 			if (is_array($value) || is_object($value))
 			{
 				$output .= "\n";
-				$output .= $this->recurse_xml($value, $indent + 1);
+				$output .= $this->recurse_xml($value, $indent + 1, $recursion_proof);
 				$output .= str_repeat('  ', $indent);
 			} else {
-				$output .= $value;
+				if (is_numeric($value))
+				{
+					$output .= $value;
+				} else {
+					$output .= '<![CDATA[' . $value . ']]>';
+				}
 			}
 			$output .= sprintf('</%s>', $key) . "\n";
 		}
