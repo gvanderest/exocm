@@ -6,7 +6,7 @@
 use Exo\Environment;
 
 Environment::add('live', array(
-	'host' => array('livedomain.com', 'www.livedomain.com'),
+	'host' => array('koch.exo.me'),
 	'database' => 'live'
 ));
 

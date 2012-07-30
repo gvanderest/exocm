@@ -13,7 +13,8 @@ Route::add('cms_admin', array(
 	'class' => 'CMS_Admin_Application',
 	'pattern' => '/admin',
 	'method' => 'index',
-	'theme' => 'admin'
+	'theme' => 'admin',
+	'cms_route_id' => 'default'
 ));
 Route::add('default', array(
 	'class' => 'CMS_Application',
