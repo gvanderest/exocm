@@ -1,0 +1,21 @@
+/**
+ * Pulse Group Media
+ * @author Guillaume VanderEst <guillaume@vanderest.org>
+ */
+
+body { background: #222 !important; }
+a { color: #880; }
+#account { background-color: #444 !important; }
+#account .greeting { font-weight: bold; color: #ccc; }
+#title .subtitle, #account .email { color: #888 !important; }
+#title em, #login h1 em { font-style: normal !important; color: #fff !important; }
+#title, #header a { color: #880 !important; }
+#menu a { color: #000 !important; }
+#login h1, #title a { color: #cc2 !important; }
+#header { background: #222 !important; border-bottom: 3px solid #666 !important; }
+#footer { background: #222 !important; border-top: 3px solid #666 !important; }
+#footer em { color: #555 !important; }
+#footer a { color: #555 !important; }
+
+#login #header { margin-bottom: 15px; border-bottom: 0px none !important; }
+#login #footer { border-top: 0px none !important; }

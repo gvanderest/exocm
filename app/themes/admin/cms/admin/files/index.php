@@ -47,7 +47,7 @@ if ($dir)
 					</tr>
 				<?php else: ?>
 					<tr>
-						<td><a target="_blank" href="<?= EXO_ASSETS_URL ?><?= $entry->assets_path ?>"><?= $entry->name ?></a></td>
+						<td><a target="_blank" href="<?= \Exo\ASSETS_URL ?><?= $entry->assets_path ?>"><?= $entry->name ?></a></td>
 						<td>File</td>
 						<td><?= number_format($entry->size / 1024, 1) ?>KB</td>
 						<td><a href="<?= $this->get_module_url(array('delete', 'f' => $entry->assets_path)) ?>" onclick="return confirm('Are you sure you wish to delete this file?');">Delete</a>

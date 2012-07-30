@@ -10,7 +10,7 @@ $_cms_info['exodus'] = array(
 );
 
 $_cms_info['koch'] = array(
-	'title' => 'koch ink <em>design</em>', 
+	'title' => 'koch <em>ink</em>', 
 	'subtitle' => 'Content Management System',
 	'title_suffix' => 'koch ink',
 	'company' => 'koch ink',
@@ -18,7 +18,21 @@ $_cms_info['koch'] = array(
 	'custom_css' => 'koch.css'
 );
 
-$_cms_info_index = 'koch';
+$_cms_info['pulse'] = array(
+	'title' => 'pulse<em>group</em>', 
+	'title_suffix' => 'Pulse Group CMS',
+	'company' => 'Pulse Group',
+	'company_url' => 'http://www.pulsegroup.ca/',
+	'custom_css' => 'pulse.css'
+);
+
+$_cms_info_index = 'exodus';
+
+if (@$_GET['theme'] && array_key_exists(@$_GET['theme'], $_cms_info))
+{
+	$_cms_info_index = @$_GET['theme'];
+}
+
 foreach ($_cms_info[$_cms_info_index] as $key => $value)
 {
 	$field = '_cms_' . $key;

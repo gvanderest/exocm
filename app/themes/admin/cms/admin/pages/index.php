@@ -12,41 +12,52 @@
 
 <!-- display the list of all menus, and their pages -->
 <?php
-function display_sidebar_item($_page, $view)
+function display_sidebar_item($_page, $view, $depth = 0)
 {
+	$indents = str_repeat('<span class="indent"></span>', $depth);
 	?>
 	<?php $page_classes = array(); ?>
 	<?php if (!$_page->active) { $page_classes[] = 'inactive'; } ?>
 	<?php if (isset($_page->menu_page_type) && $_page->menu_page_type == 'url'): ?>
-		<li class="<?= $_page->menu_page_type ?>"><span class="<?= implode(' ', $page_classes) ?>"><?= $_page->menu_page_title ?> (<?= $_page->menu_page_url ?>)</span> [<a href="<?= $view->url_to_self(array('pages/edit/link', $_page->menu_page_id)) ?>">Edit</a>] [<a href="<?= $view->url_to_self(array('pages/delete/link', $_page->menu_page_id)); ?>" onclick="return confirm('Are you sure you wish to delete this link?');">Delete</a>]</li>
+		<tr>
+			<td><?= $indents ?><?= $_page->menu_page_title ?> (<?= $_page->menu_page_url ?>)</td>
+			<td>
+				<a href="<?= $view->url_to_self(array('pages/edit/link', $_page->menu_page_id)) ?>">Edit</a>
+				| <a href="<?= $view->url_to_self(array('pages/delete/link', $_page->menu_page_id)); ?>" onclick="return confirm('Are you sure you wish to delete this link?');">Delete</a>
+			</td>
+		</tr>
 	<?php else: ?>
-		<li class="<?= $_page->menu_page_type ?>"><span class="<?= implode(' ', $page_classes) ?>"><?= isset($_page->menu_page_title) ? $_page->menu_page_title : $_page->title ?>
-			<?php if (isset($_page->menu_page_title) && $_page->title != $_page->menu_page_title) { ?><span class="actual_page_title">(Page: <?= $_page->title ?>)</span><?php } ?>
-		</span> [<a href="<?= $view->url_to_self(array('pages/edit/page', $_page->id)) ?>">Edit</a>] [<a href="<?= $view->url_to_self(array('pages/delete/page', $_page->id)) ?>" onclick="return confirm('Are you sure you wish to delete this page?')">Delete</a>]</li>
+		<tr>
+			<?php if (isset($_page->menu_page_title)): ?>
+				<td><?= $indents ?><?= $_page->menu_page_title ?> (<?= $_page->slug ?>)</td>
+			<?php else: ?>
+				<td><?= $indents ?><?= $_page->title ?> (<?= $_page->slug ?>)</td>
+			<?php endif; ?>
+			<td>
+				<a href="<?= $view->url_to_self(array('pages/edit/page', $_page->page_id)) ?>">Edit</a>
+				| <a href="<?= $view->url_to_self(array('pages/delete/page', $_page->page_id)); ?>" onclick="return confirm('Are you sure you wish to delete this page?');">Delete</a>
+			</td>
+		</tr>
 	<?php endif; ?>
 	<?php
 }
 
-function recursively_draw_sidebar_menu($view, $menu, $menu_pages, $parent_id = 0)
+function recursively_draw_sidebar_menu($view, $menu, $menu_pages, $parent_id = 0, $depth = 0)
 {
 	?>
 		<?php $_pages = array(); ?>
+
 		<?php foreach ($menu_pages as $menu_page): ?>
 			<?php if ($menu_page->menu_id == $menu->id && $menu_page->parent_id == $parent_id) { $_pages[] = $menu_page; } ?>
 		<?php endforeach; ?>
 
 		<?php if (count($_pages) > 0): ?>
-			<ul>
-
-				<?php if (count($_pages) > 0): ?>
-					<ul>
-						<?php foreach ($_pages as $_page): ?>
-							<?php display_sidebar_item($_page, $view); ?>
-							<?= recursively_draw_sidebar_menu($view, $menu, $menu_pages, $_page->menu_page_id); ?>
-						<?php endforeach; ?>
-					</ul>
-				<?php endif; ?>
-			</ul>
+			<?php if (count($_pages) > 0): ?>
+				<?php foreach ($_pages as $_page): ?>
+					<?php display_sidebar_item($_page, $view, $depth); ?>
+					<?= recursively_draw_sidebar_menu($view, $menu, $menu_pages, $_page->menu_page_id, $depth + 1); ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
 		<?php endif; ?>
 	<?php
 }
@@ -72,18 +83,26 @@ foreach ($this->data['pages'] as $page)
 ?>
 <div id="cms-sidebar">
 	<div id="cms-menus">
-		<?php foreach ($menus as $menu): ?>
-			<p><strong><?= $menu->name ?> (<?= $menu->slug ?>)</strong> [<a href="<?= $this->url_to_self(array('pages/edit/menu', $menu->id)) ?>">Edit</a>] [<a href="<?= $this->url_to_self(array('pages/delete/menu', $menu->id)) ?>" onclick="return confirm('Are you sure you wish to delete this menu and remove association to all pages?');">Delete</a>]</p>
-			<?= recursively_draw_sidebar_menu($this, $menu, $menu_pages); ?>
-		<?php endforeach; ?>
-		<?php if (count($orphans) > 0): ?>
-		<p><strong>Orphan Pages</strong></p>
-		<ul>
-			<?php foreach ($orphans as $orphan): ?>
-				<?= display_sidebar_item($orphan, $this); ?>
+		<table>
+			<?php foreach ($menus as $menu): ?>
+				<tr>
+					<th><?= $menu->name ?> (<?= $menu->slug ?>)</th>
+					<th>
+						<a href="<?= $this->url_to_self(array('pages', 'edit', 'menu', $menu->id)); ?>">Edit</a>
+						| <a onclick="" href="<?= $this->url_to_self(array('pages', 'delete', 'menu', $menu->id)); ?>"onclick="return confirm('Are you sure you wish to delete this menu and remove association to all pages?');">Delete</a>
+					</th>
+				</tr>
+				<?= recursively_draw_sidebar_menu($this, $menu, $menu_pages); ?>
 			<?php endforeach; ?>
-		</ul>
-		<?php endif; ?>
+			<?php if (count($orphans) > 0): ?>
+				<tr>
+					<th colspan="2">Orphan Pages</th>
+				</tr>
+				<?php foreach ($orphans as $orphan): ?>
+					<?= display_sidebar_item($orphan, $this); ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</table>
 	</div> <!-- #cms-menus -->
 </div> <!-- #cms-sidebar -->
 
