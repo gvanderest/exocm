@@ -84,6 +84,11 @@ class CMS_View extends Exo_View
 	 */
 	public function recursively_display_menu($pages, $parent_id = NULL, $options = array())
 	{
+		$options = array_merge(array(
+			'entry_method' => NULL,
+			'menu_method' => NULL
+		), $options);
+
 		$children = array();
 		foreach ($pages as $page)
 		{
@@ -101,7 +106,6 @@ class CMS_View extends Exo_View
 			return $o;
 		}
 
-		$o.= '<ul' . (($options['id'] === NULL) ? '' : (' id="' . $options['id'] . '"')) . '>';
 		foreach ($children as $page)
 		{
 			$classes = array();
@@ -111,7 +115,11 @@ class CMS_View extends Exo_View
 			{
 				$url = $page->menu_page_url;
 			} else {
-				if ($options['page'] && $page->id == $options['page']->id) { $classes[] = $options['active_class']; }
+				if ($options['page'] && $page->id == $options['page']->id) 
+				{ 
+					$classes[] = $options['active_class']; 
+				}
+
 				// FIXME: detect the actual route that is a cms application
 				$url = ($options['hashes'] ? '#' . $page->slug : $this->url_to_self(array($page->slug)));
 			}
@@ -134,12 +142,26 @@ class CMS_View extends Exo_View
 				}
 			}
 
+			// run this method on the entry to get the output
+			if ($options['entry_method'] !== NULL)
+			{
+				$o .= call_user_func($options['entry_method'], $page, $classes);
+				continue;
+			}
+
 			$o.= '<li class="' . implode(' ', $classes) . '">';
 			$o.= '<a class="' . implode(' ', $classes) . '" href="' . $url . '">' . $page_name . '</a>';
 			$o.= $submenu;
 			$o.= '</li>';
 		}
-		$o.= '</ul>';
+
+		// function to wrap around menu output
+		if ($options['menu_method'] !== NULL)
+		{
+			return call_user_func($options['menu_method'], $o);
+		}
+
+		$o = '<ul' . (($options['id'] === NULL) ? '' : (' id="' . $options['id'] . '"')) . '>' . $o . '</ul>';
 
 		return $o;
 	}
