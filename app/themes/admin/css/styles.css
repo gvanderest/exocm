@@ -49,15 +49,13 @@ h1 + .breadcrumb { display: block; font-size: 11px; margin-top: -20px; margin-bo
 /**
  * Background Colour
  */
-body#login, body#default #header { background: #600;
-	background-image: linear-gradient(top, #400 10%, #600);
-	background-image: -moz-linear-gradient(top, #400 10%, #600);
-	background-image: -webkit-linear-gradient(top, #400 10%, #600);
+body#login, body#default #header { 
+	background: #444;
+	background-image: linear-gradient(top, #444 10%, #555);
 }
-body#default { background-color: #400;
-	background-image: linear-gradient(top, #500 90%, #400);
-	background-image: -moz-linear-gradient(top, #500 90%, #400);
-	background-image: -webkit-linear-gradient(top, #500 90%, #400);
+body#default { 
+	background-color: #444;
+	background-image: linear-gradient(top, #444 10%, #555);
 }
 body#default #menu ul ul li:hover { background-color: #ddd; }
 body#default #menu ul ul li:hover a { color: #000; }
@@ -67,8 +65,8 @@ html, body#login { min-height: 100%; }
 body#login { font-size: 12px; line-height: 1.3; }
 body#login #container { width: 350px; margin: 100px auto 0 auto; }
 body#login #header { text-align: center; }
-body#login h1 { text-transform: lowercase; cursor: default; color: #fff; font-size: 30px; text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); text-align: center; margin-bottom: -10px; font-weight: 500; }
-body#login h1 strong { font-weight: 700; }
+body#login h1 { text-transform: lowercase; cursor: default; color: #ad3; font-size: 30px; text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); text-align: center; margin-bottom: -10px; font-weight: 500; }
+body#login h1 strong { font-weight: normal; color: #fff; }
 body#login h2 { color: #fff; font-size: 11px; text-align: center; font-weight: normal; display: none; }
 body#login .form { background: #fff; border-radius: 10px; padding: 15px 30px 15px 30px; margin-top: 20px; }
 body#login form .ExoUI_Textbox label, body#login form .ExoUI_Password label { display: inline-block; min-width: 100px; }
@@ -83,15 +81,16 @@ body#login #footer a:hover { color: #ccc; }
 body#login #footer #forgotten { float: left; }
 body#login .Exo_Errors { margin-top: 15px; }
 
-a { color: #036; }
+a { color: #470; }
 
 body#default { min-width: 900px; }
 body#default #header ul, body#default #header p { margin-bottom: 0; }
-body#default #header { height: 100px; position: relative; line-height: 1; border-bottom: 3px solid #300; }
+body#default #header { height: 100px; position: relative; line-height: 1; border-bottom: 3px solid #690; }
 body#default #header #title { position: absolute; top: 15px; left: 30px; font-size: 11px; color: #aaa; line-height: 36px; vertical-align: middle; }
 body#default #header h1 { display: block; text-transform: lowercase; font-weight: normal; font-size: 36px; text-shadow: 0 0 30px rgba(255, 255, 255, 0.6); line-height: 1.3; margin-bottom: 0; line-height: 36px; }
 body#default #header .subtitle { color: #ccc; line-height: 1; }
-body#default #header h1 a { color: #fff; text-decoration: none; }
+body#default #header h1 a { color: #ad3; text-decoration: none; }
+body#default #header h1 strong { font-weight: normal; color: #fff; }
 body#default #header h1:hover { text-shadow: 0 0 20px rgba(255, 255, 255, 1); }
 body#default #header #preview { position: absolute; top: 20px; right: 270px; }
 body#default #header #preview a { color: #ccc; font-size: 11px; text-decoration: none; }
@@ -122,7 +121,7 @@ body#default #account .controls li { list-style: none; }
 
 body#default #body { padding: 15px 30px 15px 30px; line-height: 1.6; min-height: 400px; background: #fff; }
 
-body#default #footer { padding: 15px 30px 15px 30px; border-top: 3px solid #700; color: #777; font-size: 11px; }
+body#default #footer { padding: 15px 30px 15px 30px; border-top: 3px solid #690; color: #777; font-size: 11px; }
 body#default #footer a { color: #aaa; }
 body#default #footer a:hover { color: #fff; }
 body#default #footer em { color: #aaa; font-style: normal; }

@@ -2,9 +2,9 @@
 $_cms_info = array();
 
 $_cms_info['exodus'] = array(
-	'title' => 'exo<strong>cm</strong>', 
+	'title' => 'exodus <strong>media</strong>', 
 	'subtitle' => 'Content Management System',
-	'title_suffix' => 'ExoCM',
+	'title_suffix' => 'Exodus Media',
 	'company' => 'Exodus Media',
 	'company_url' => 'http://exo.me/'
 );
