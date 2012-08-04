@@ -6,6 +6,8 @@
 
 class CMS_Admin_PageAdmin extends CMS_Admin_Application
 {
+	const DEFAULT_TEMPLATE = 'default';
+
 	public function init($request)
 	{
 		$request = $this->request;
@@ -98,7 +100,7 @@ class CMS_Admin_PageAdmin extends CMS_Admin_Application
 
 			// prep page data
 			$page = new stdClass;
-			$page->slug = $data->slug;
+			$page->slug = $this->library->get_unique_page_slug($data->slug);
 			$page->template = $data->template;
 			$page->date_created = date('Y-m-d H:i:s');
 			$page->date_edited = date('Y-m-d H:i:s');
