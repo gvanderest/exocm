@@ -84,6 +84,7 @@ class Renderer extends Entity
 		{
 			return self::$renderers[$id];
 		}
-		throw new Exception('Requested renderer "' . $id . '" could not be found');
+		//throw new Exception('Requested renderer "' . $id . '" could not be found');
+		return NULL;
 	}
 }
