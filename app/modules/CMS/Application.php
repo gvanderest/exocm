@@ -32,8 +32,13 @@ class CMS_Application extends Exo\Application
 
 		if (!$page)
 		{
-			$response = $this->render('cms/error');
-			return $response;
+			try
+			{
+				$response = $this->render('cms/error');
+				return $response;
+			} catch (Exception $e) {
+				return $this->error();
+			}
 		}
 
 		$this->data['page'] = $response->data['page'] = $page;
