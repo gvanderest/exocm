@@ -44,7 +44,7 @@ class CMS_MenuPageSelector extends ExoUI_DataObject
 
 			if ($item->parent_id == $parent_id)
 			{
-				$obj->add_option($item->menu_page_id, str_repeat('-', $depth) . ' ' . $item->menu_page_title . ($item->menu_page_rank > 0 ? (' - Rank: ' . $item->menu_page_rank) : ''));
+				$obj->add_option($item->menu_page_id, str_repeat('-', $depth) . ' ' . $item->menu_page_title . ' - Rank: ' . $item->menu_page_rank);
 				$this->populate_with_parents($obj, $items, $item->menu_page_id, $depth + 1);
 			}
 		}
