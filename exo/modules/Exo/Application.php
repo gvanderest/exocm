@@ -110,16 +110,40 @@ class Application extends Entity
 	{
 		if (!is_array($args)) { $args = array($args); }
 
+		// arguments with a numeric index, segments
+		$numeric = array();
+		// everything else, query string
+		$queries = array();
+
+		foreach ($args as $key => $value)
+		{
+			if (is_numeric($key))
+			{
+				$numeric[$key] = $value;
+				continue;
+			}
+
+			$queries[$key] = $value;
+		}
+		ksort($numeric);
+		ksort($queries);
+
 		$route = $this->route;
 		$url = $route->pattern;
-		if (count($args) > 0)
+		if (count($numeric) > 0)
 		{
 			if ($url != Route::REQUEST_SEPARATOR)
 			{
 				$url .= Route::REQUEST_SEPARATOR;
 			}
-			$url .= implode(Route::REQUEST_SEPARATOR, $args);
+			$url .= implode(Route::REQUEST_SEPARATOR, $numeric);
 		}
+
+		if (count($queries) > 0)
+		{
+			$url .= '?' . http_build_query($queries);
+		}
+
 		return $url;
 	}
 }
