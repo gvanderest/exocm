@@ -148,6 +148,33 @@ class CMS_Library
 		return $entries;
 	}		
 
+	/**
+	 * Get a unique page slug from a base slug
+	 * @param string $base_slug
+	 * @return string unique slug
+	 */
+	public function get_unique_page_slug($base_slug)
+	{
+		$existing_pages = $this->db->select('cms_pages', array(
+			'where' => array(array('slug', 'starts_with', $base_slug))
+		));
+
+		$existing_slugs = array();
+		foreach ($existing_pages as $page)
+		{
+			$existing_slugs[] = $page->slug;
+		}
+
+		for ($x = 0; TRUE; $x++)
+		{
+			$slug = $base_slug . ($x > 0 ? ('-' . $x) : '');
+			if (!in_array($slug, $existing_slugs))
+			{
+				return $slug;
+			}
+		}
+		return NULL;
+	}
 
 	/**
 	 * Get the cleaned-up files path based on the requested path, preventing altering system paths
