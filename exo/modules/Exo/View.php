@@ -7,6 +7,7 @@
 namespace Exo;
 class View extends Entity
 {
+	const ERROR_TEMPLATE = 'error';
 	/**
 	 * The application that instantiated the view
 	 * @var Exo\Application
@@ -27,9 +28,10 @@ class View extends Entity
 	 * Render the appropriate template
 	 * @param string $template
 	 * @param array $data (optional) if not provided, uses application data
+	 * @param bool $detect_renderer (optional) 
 	 * @return Exo\Response
 	 */
-	public function render($template, $data = NULL)
+	public function render($template, $data = NULL, $detect_renderer = TRUE)
 	{
 		if ($data === NULL)
 		{
@@ -41,10 +43,14 @@ class View extends Entity
 		if ($this->application->request)
 		{ 
 			$format = $this->application->request->format; 
+			if (!Renderer::get($format))
+			{
+				$format = Renderer::DEFAULT_RENDERER_ID;
+			}
 		}
+		$renderer = Renderer::get($format);
 
 		// insantiate renderer
-		$renderer = Renderer::get($format);
 		$class = $renderer->class;
 		$renderer = new $class($this);
 		$renderer->template = $template;
