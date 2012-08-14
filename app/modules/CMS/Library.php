@@ -71,7 +71,7 @@ class CMS_Library
 	 */
 	public function delete_user($id)
 	{
-		return $this->db->delete('cms_users', $id);
+		return $this->db->delete('users', $id);
 	}	
 
 	/**
