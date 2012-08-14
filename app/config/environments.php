@@ -5,9 +5,14 @@
  */
 use Exo\Environment;
 
-Environment::add('live', array(
+Environment::add('koch', array(
+	'host' => array('koch.exo.me'),
+	'database' => 'koch'
+));
+
+Environment::add('exodus', array(
 	'host' => array('exo.me', 'exodusmedia.ca', 'www.exodusmedia.ca', 'www.exo.me'),
-	'database' => 'live'
+	'database' => 'exodus'
 ));
 
 Environment::add('staging', array(

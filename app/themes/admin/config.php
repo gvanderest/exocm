@@ -27,7 +27,7 @@ $_cms_info['pulse'] = array(
 );
 
 $_cms_info_index = 'exodus';
-if ($_SERVER['HTTP_HOST'] == 'koch.exo.cm')
+if ($_SERVER['HTTP_HOST'] == 'koch.exo.me')
 {
 	$_cms_info_index = 'koch';
 }

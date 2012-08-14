@@ -6,7 +6,15 @@
 
 use Exo\Database;
 
-Database::add('live', array(
+Database::add('koch', array(
+	'type' => 'mysql',
+	'host' => 'internal-db.s118123.gridserver.com',
+	'user' => 'db118123_exodus',
+	'password' => 'Pr0view!@#',
+	'name' => 'db118123_kochink'
+));
+
+Database::add('exodus', array(
 	'type' => 'mysql',
 	'host' => 'internal-db.s118123.gridserver.com',
 	'user' => 'db118123_exodus',
