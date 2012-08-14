@@ -27,6 +27,10 @@ $_cms_info['pulse'] = array(
 );
 
 $_cms_info_index = 'exodus';
+if ($_SERVER['HTTP_HOST'] == 'koch.exo.cm')
+{
+	$_cms_info_index = 'koch';
+}
 
 if (@$_GET['theme'] && array_key_exists(@$_GET['theme'], $_cms_info))
 {
