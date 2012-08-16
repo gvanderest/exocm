@@ -281,4 +281,5 @@ table {
 }
 
 /** Custom **/
+#home-template #body { padding: 0px; }
 #home-template #content { min-height: 0; }

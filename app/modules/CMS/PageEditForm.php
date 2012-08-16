@@ -22,7 +22,8 @@ class CMS_PageEditForm extends CMS_Form
 		));
 
 		$this->content = new ExoUI_HTMLEditor('content', array(
-			'toolbar' => 'extended'
+			'toolbar' => 'extended',
+			'width' => 960
 		));
 
 		$this->template = new ExoUI_Select('template');

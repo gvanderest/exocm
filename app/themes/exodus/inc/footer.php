@@ -18,9 +18,9 @@
 				<div id="client-help">
 					<h2>Sections</h2>
 					<?= 
-					$this->display_menu('main', array(
+					$view->display_menu('main', array(
 						'entry_method' => function ($page, $classes = array()) {
-							return '<li class="' . implode(' ', $classes) . '"><a href="' . $page->slug . '">' . $page->title . '</a></li>';
+							return '<li class="' . implode(' ', $classes) . '"><a href="/' . $page->slug . '">' . $page->title . '</a></li>';
 						}
 					));
 					?>
