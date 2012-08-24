@@ -14,7 +14,8 @@ Route::add('cms_admin', array(
 	'pattern' => '/admin',
 	'method' => 'index',
 	'theme' => 'admin',
-	'cms_route_id' => 'default'
+	'cms_route_id' => 'default',
+	//'cms_max_users' => 1
 ));
 Route::add('default', array(
 	'class' => 'CMS_Application',

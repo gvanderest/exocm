@@ -12,9 +12,14 @@
 	'Users' => ''
 )); ?>
 
-<ul>
-	<li><a href="<?= $this->url_to_self(array('users/add')) ?>">Add User</a></li>
-</ul>
+<?php $max_users = @$this->application->request->route->cms_max_users; ?>
+<?php if ($max_users > 0): ?>
+	<div class="notice">The maximum number of users has been reached.</div> <!-- .notice -->
+<?php else: ?>
+	<ul>
+		<li><a href="<?= $this->url_to_self(array('users/add')) ?>">Add User</a></li>
+	</ul>
+<?php endif; ?>
 
 <?php if (count($this->data['users']) == 0): ?>
 	<p>There are currently no users.</p>

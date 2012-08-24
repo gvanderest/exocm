@@ -22,6 +22,13 @@ class CMS_UserAdmin extends CMS_Admin_Application
 
 	public function add()
 	{
+		$users = $this->library->get_users();
+		$max_users = @$this->request->route->cms_max_users;
+		if (count($users) >= $max_users)
+		{
+			$this->redirect_to_module(array());
+		}
+
 		$form = $this->data['form'] = new CMS_UserAddForm('add', array(
 			'application' => $this
 		));
