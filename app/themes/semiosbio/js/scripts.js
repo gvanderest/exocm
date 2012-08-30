@@ -4,20 +4,22 @@
  */
 
 $(function(){
+	$('#logo').css({ opacity: 0.8 });
+	$('#logo').hover(function(){
+		$(this).animate({ opacity: 1 }, 'fast');
+	}, function(){
+		$(this).animate({ opacity: 0.8 }, 'fast');
+	});
+	//
 	// homepage banners
 	$('#home-banner a').html('').after('<div class="bar"></div>');
-	$('#home-banner .bar').fadeTo(0, 0);
-	$('#home-banner-semios-guard .bar').css({ left: '-50%' });
-	$('#home-banner-semios-guard a').hover(function(){
-		$(this).siblings('.bar').stop(true, true).animate({ opacity: 1, left: 0 }, 'fast');
+	$('#home-banner .bar').css({ width: 0 }).fadeTo(0, 0);
+	$('#home-banner-semios-guard .bar').css({ left: 0 });
+	$('#home-banner-semios-net .bar').css({ right: 0 });
+	$('#home-banner a').hover(function(){
+		$(this).siblings('.bar').stop(true, true).animate({ opacity: 0.8, width: '50%' }, 'fast');
 	}, function(){
-		$(this).siblings('.bar').stop(true, true).animate({ opacity: 0, left: '-50%' }, 'fast');
-	});
-	$('#home-banner-semios-net .bar').css({ left: '100%' });
-	$('#home-banner-semios-net a').hover(function(){
-		$(this).siblings('.bar').stop(true, true).animate({ opacity: 1, left: '50%' }, 'fast');
-	}, function(){
-		$(this).siblings('.bar').stop(true, true).animate({ opacity: 0, left: '100%' }, 'fast');
+		$(this).siblings('.bar').stop(true, true).animate({ opacity: 0, width: 0 }, 'fast');
 	});
 
 	// resize submenus
