@@ -3,10 +3,10 @@
  * CMS Admin Dashboard
  * @header
  */
-
-class CMS_Admin_Dashboard extends CMS_Admin_Application
+namespace CMS\Admin;
+class Dashboard extends Application
 {
-	public function init($request)
+	public function index()
 	{
 		return $this->render('cms/admin/dashboard');
 	}

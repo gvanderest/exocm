@@ -3,32 +3,17 @@
  * CMS User Administrator
  * @header
  */
-class CMS_UserAdmin extends CMS_Admin_Application
+namespace CMS\User;
+use CMS\User\Form as UserForm;
+class Admin extends \CMS\Admin\Application
 {
 	public function __construct($request)
 	{
 		parent::__construct($request);
 	}
 
-	public function init($request)
-	{
-		$verb = @$request->arguments[1];
-		$id = @$request->arguments[2];
-
-		if (!$verb) { $verb = 'index'; }
-
-		return $this->$verb($id);
-	}
-
 	public function add()
 	{
-		$users = $this->library->get_users();
-		$max_users = @$this->request->route->cms_max_users;
-		if (count($users) >= $max_users)
-		{
-			$this->redirect_to_module(array());
-		}
-
 		$form = $this->data['form'] = new CMS_UserAddForm('add', array(
 			'application' => $this
 		));
@@ -54,7 +39,7 @@ class CMS_UserAdmin extends CMS_Admin_Application
 	public function edit($id)
 	{
 		$user = $this->data['user'] = $this->library->get_user($id);
-		$form = $this->data['form'] = new CMS_UserEditForm('edit', array(
+		$form = $this->data['form'] = new UserForm('edit', array(
 			'application' => $this
 		));
 		$form->set_default_data($user);
@@ -85,9 +70,24 @@ class CMS_UserAdmin extends CMS_Admin_Application
 		$this->redirect_to_self(array('users'));
 	}
 
-	public function index($request)
+	public function index()
 	{
-		$users = $this->data['users'] = $this->library->get_users();
-		return $this->view->render('cms/admin/users/index');
+		$request = $this->request;
+		$verb = @$request->arguments[1];
+		$id = @$request->arguments[2];
+
+		switch ($verb)
+		{
+			case 'add':
+			case 'delete':
+			case 'edit':
+				return $this->$verb($id);
+
+			case '':
+				$users = $this->data['users'] = $this->library->get_users();
+				return $this->view->render('cms/admin/users/index');
+		}
+
+		return $this->error();
 	}
 }

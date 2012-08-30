@@ -15,19 +15,20 @@ ul li { list-style: outside square; }
 ol ul { list-style: outside decimal; }
 ul ul, ol ol { margin-bottom: 0; }
 
-div.message, div.notice, .ExoUI_Errors { max-width: 500px; border: 1px solid #800; background-color: #fee; padding: 10px 20px; color: #800; margin-bottom: 15px; }
+div.message, div.notice, .ExoUI_Error { max-width: 500px; border: 1px solid #800; background-color: #fee; padding: 10px 20px; color: #800; margin-bottom: 15px; }
 div.notice { border: 1px solid #a90; color: #a90; background: #ffd; }
 div.success { border: 1px solid #080; color: #080; background: #efe; }
 
-.ExoUI_Errors > ul { margin: 0 0 0 20px; }
-.ExoUI_Errors > ul > li { list-style: square outside; display: list-item; }
-.ExoUI_HTMLEditor textarea, .ExoUI_Textarea textarea, .ExoUI_Textbox input, .ExoUI_Password input, .ExoUI_CurrencyTextbox input { border: 1px solid #ccc; border-radius: 3px; padding: 2px 5px 2px 5px; font-size: 12px; }
+.ExoUI_Error > ul { margin: 0 0 0 20px; }
+.ExoUI_Error > ul > li { list-style: square outside; display: list-item; }
+.ExoUI_HTML textarea, .ExoUI_Textarea textarea, .ExoUI_Date input, .ExoUI_Textbox input, .ExoUI_Password input, .ExoUI_CurrencyTextbox input { border: 1px solid #ccc; border-radius: 3px; padding: 2px 5px 2px 5px; font-size: 12px; }
+.ExoUI_Date input { width: 150px; }
 .ExoUI_CurrencyTextbox input { padding-left: 20px; }
 .ExoUI_CurrencyTextbox .symbol { position: absolute; margin-left: 10px; margin-top: 2px; color: #999; font-style: normal; }
 .ExoUI_Form label { vertical-align: top; display: inline-block; min-width: 120px; color: #000; }
-.ExoUI_Textarea textarea, .ExoUI_HTMLEditor textarea { width: 400px; height: 150px; }
-.ExoUI_HTMLEditor textarea { width: 600px; height: 300px; }
-.ExoUI_HTMLEditor .mceEditor { display: inline-block; }
+.ExoUI_Textarea textarea, .ExoUI_HTML textarea { width: 400px; height: 150px; }
+.ExoUI_HTML textarea { width: 600px; height: 300px; }
+.ExoUI_HTML .mceEditor { display: inline-block; }
 .ExoUI_Form .error input { border: 1px solid #800; background-color: #fee; color: #800; }
 .ExoUI_Form .error input { border: 1px solid #800; background-color: #fee; color: #800; }
 .ExoUI_Form .error .error { color: #800; }

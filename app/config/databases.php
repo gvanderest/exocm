@@ -6,20 +6,12 @@
 
 use Exo\Database;
 
-Database::add('koch', array(
+Database::add('semiosbio', array(
 	'type' => 'mysql',
 	'host' => 'internal-db.s118123.gridserver.com',
-	'user' => 'db118123_exodus',
-	'password' => 'Pr0view!@#',
-	'name' => 'db118123_kochink'
-));
-
-Database::add('exodus', array(
-	'type' => 'mysql',
-	'host' => 'internal-db.s118123.gridserver.com',
-	'user' => 'db118123_exodus',
-	'password' => 'Pr0view!@#',
-	'name' => 'db118123_exodus'
+	'user' => 'db118123_demo',
+	'password' => 'N3T$h1ftqaz',
+	'name' => 'db118123_semiosbio'
 ));
 
 Database::add('dev', array(
@@ -27,5 +19,5 @@ Database::add('dev', array(
 	'host' => 'localhost',
 	'user' => 'root',
 	'password' => '',
-	'name' => 'exocm'
+	'name' => 'semiosbio'
 ));

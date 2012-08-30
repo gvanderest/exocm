@@ -3,7 +3,8 @@
  * CMS File Manager
  * @header
  */
-class CMS_Admin_FileManager extends CMS_Admin_Application
+namespace CMS\Admin;
+class FileManager extends Application
 {
 	public function __construct($request)
 	{

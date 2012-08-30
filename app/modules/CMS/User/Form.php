@@ -3,7 +3,13 @@
  * User Edit Form
  * @header
  */
-class CMS_UserEditForm extends ExoUI_Form
+namespace CMS\User;
+use ExoUI\Upload;
+use ExoUI\Textbox;
+use ExoUI\Email;
+use ExoUI\Password;
+use ExoUI\Submit;
+class Form extends \ExoUI\Form
 {
 	public $user;
 
@@ -16,23 +22,23 @@ class CMS_UserEditForm extends ExoUI_Form
 			$this->user = $options['user'];
 		}
 
-		$this->photo = new ExoUI_Upload('photo');
+		$this->photo = new Upload('photo');
 
-		$this->first_name = new ExoUI_Textbox('first_name', array(
+		$this->first_name = new Textbox('first_name', array(
 			'validations' => array('required')
 		));
 
-		$this->last_name = new ExoUI_Textbox('last_name', array(
+		$this->last_name = new Textbox('last_name', array(
 			'validations' => array('required')
 		));
 
-		$this->email = new ExoUI_EmailTextbox();
+		$this->email = new Email();
 
-		$this->username = new ExoUI_Textbox('username');
+		$this->username = new Textbox('username');
 
-		$this->password = new ExoUI_Password();
+		$this->password = new Password();
 
-		$this->submit = new ExoUI_Submit('submit', array('value' => 'Edit User'));
+		$this->submit = new Submit('submit', array('value' => 'Edit User'));
 
 		$this->add(array(
 			$this->photo,

@@ -13,6 +13,6 @@ $title = 'Dashboard';
 	'Home' => ''
 )); ?>
 
-<p>A dashboard has not yet been created.</p>
+<p>Welcome to the Content Management System</p>
 
 <?php require_once($this->theme_path . '/inc/footer.php'); ?>

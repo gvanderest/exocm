@@ -3,7 +3,9 @@
  * CMS Library for all CMS-related calls
  * @header
  */
-class CMS_Library
+namespace CMS;
+use \Exo\Database\Connection;
+class Library
 {
 	const FORM_FIELD_TEXTBOX = 'textbox';
 	const FORM_FIELD_TEXTAREA = 'textarea';
@@ -17,7 +19,7 @@ class CMS_Library
 
 	public function __construct($application = NULL)
 	{
-		$this->db = new Exo\Database\Connection();
+		$this->db = new Connection();
 		$this->assets_base_path = \Exo\ASSETS_PATH;
 		$this->application = $application;
 	}
@@ -135,7 +137,7 @@ class CMS_Library
 			// don't count these, they're not important
 			if (in_array($record, array('.', '..'))) { continue; }
 			
-			$entry = new stdClass;
+			$entry = new \stdClass;
 			$entry->path = $path . '/' . $record;
 			$entry->assets_path = strpos($path, $this->assets_base_path) !== FALSE ? str_replace($this->assets_base_path, '', $entry->path) : NULL;
 			$entry->name = $record;
@@ -219,7 +221,7 @@ class CMS_Library
 				$suffix = '.php';
 				if (preg_match('/' . $suffix . '$/', $entry))
 				{
-					$template = new stdClass;
+					$template = new \stdClass;
 					$template->name = substr($entry, 0, strlen($entry) - strlen($suffix));
 
 					$templates[] = $template;
@@ -1019,7 +1021,8 @@ class CMS_Library
 		$tags = array(
 			(object)array('name' => 'cms:form', 'class' => 'CMS_Tag_ContactForm'),
 			(object)array('name' => 'cms:content', 'class' => 'CMS_Tag_Content'),
-			(object)array('name' => 'cms:gallery', 'class' => 'CMS_Tag_Gallery')
+			(object)array('name' => 'cms:gallery', 'class' => 'CMS_Tag_Gallery'),
+			(object)array('name' => 'cms:search', 'class' => 'CMS\Tag\Search')
 		);
 		foreach ($tags as $tag)
 		{
@@ -1035,5 +1038,29 @@ class CMS_Library
 			}
 		}
 		return $content;
+	}
+
+	/**
+	 * Search CMS pages for a query string
+	 * @param string $query
+	 * @return array of page objects that match
+	 */
+	public function search_pages($query)
+	{
+		return $this->db->select('
+			(
+				SELECT *
+				FROM (
+					SELECT P.id, V.title, V.content, P.slug
+					FROM cms_pages P
+					JOIN cms_page_versions V ON P.id = V.page_id
+					ORDER BY V.date_created DESC
+				) Y
+				GROUP BY id
+			) Z
+		', array(
+			'where' => array(array(array('title', 'content'), 'contains', $query)),
+			'amount' => 5
+		));
 	}
 }

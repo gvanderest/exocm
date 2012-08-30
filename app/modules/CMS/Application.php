@@ -3,8 +3,11 @@
  * CMS Application
  * @header
  */
-use Exo\Error\Response as Exo_NotFoundResponse;
-class CMS_Application extends Exo\Application
+namespace CMS;
+use Exo\Response;
+use CMS\Library;
+use CMS\View;
+class Application extends \Exo\Application
 {
 	const DEFAULT_PAGE_SLUG = 'home';
 	const DEFAULT_TEMPLATE = 'default';
@@ -14,8 +17,8 @@ class CMS_Application extends Exo\Application
 	public function __construct($request)
 	{
 		parent::__construct($request);
-		$this->library = new CMS_Library($this);
-		$this->view = new CMS_View($this);
+		$this->library = new Library($this);
+		$this->view = new View($this);
 	}
 
 	public function index()
@@ -35,6 +38,7 @@ class CMS_Application extends Exo\Application
 			try
 			{
 				$response = $this->render('cms/error');
+				$response->http_code = Response::HTTP_NOT_FOUND_CODE;
 				return $response;
 			} catch (Exception $e) {
 				return $this->error();

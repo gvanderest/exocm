@@ -3,22 +3,26 @@
  * CMS File Manager Upload Form
  * @author Guillaume VanderEst <guillaume@vanderest.org>
  */
-class CMS_FileUploadForm extends ExoUI_Form
+namespace CMS\File;
+use ExoUI\Upload;
+use ExoUI\Textbox;
+use ExoUI\Submit;
+class UploadForm extends \ExoUI\Form
 {
 	public function __construct($id = 'file_upload_form', $options = array())
 	{
 		parent::__construct($id);
 
-		$this->file = new ExoUI_Upload('file', array(
+		$this->file = new Upload('file', array(
 			'label' => 'Upload File'
 		));
 
-		$this->name = new ExoUI_Textbox('name', array(
+		$this->name = new Textbox('name', array(
 			'label' => 'Filename',
 			'help' => 'If you wish to name the file something else, type it here'
 		));
 
-		$this->submit = new ExoUI_Submit();
+		$this->submit = new Submit();
 
 		$this->add(array(
 			$this->file,

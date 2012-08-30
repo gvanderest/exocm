@@ -10,6 +10,37 @@ use Exo\Request;
 use Exo\Response;
 use Exo\Route;
 
+if (get_magic_quotes_gpc()) {
+    $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
+    while (list($key, $val) = each($process)) {
+        foreach ($val as $k => $v) {
+            unset($process[$key][$k]);
+            if (is_array($v)) {
+                $process[$key][stripslashes($k)] = $v;
+                $process[] = &$process[$key][stripslashes($k)];
+            } else {
+                $process[$key][stripslashes($k)] = stripslashes($v);
+            }
+        }
+    }
+    unset($process);
+}
+
+define('Exo\BASE_PATH', realpath(__DIR__ . '/..'));
+define('Exo\BASE_URL', (@$_SERVER['HTTPS'] ? 'https' : 'http') . '://' . @$_SERVER['HTTP_HOST'] . str_replace(realpath(@$_SERVER['DOCUMENT_ROOT']), '', Exo\BASE_PATH));
+define('Exo\APP_PATH', Exo\BASE_PATH . '/app');
+define('Exo\APP_URL', Exo\BASE_URL . '/app');
+define('Exo\EXO_PATH', Exo\BASE_PATH . '/exo');
+define('Exo\EXO_URL', Exo\BASE_URL . '/exo');
+define('Exo\APP_MODULES_PATH', Exo\APP_PATH . '/modules');
+define('Exo\APP_MODULES_URL', Exo\APP_URL . '/modules');
+define('Exo\APP_THEMES_PATH', Exo\APP_PATH . '/themes');
+define('Exo\APP_THEMES_URL', Exo\APP_URL . '/themes');
+define('Exo\CACHE_PATH', Exo\APP_PATH . '/cache');
+define('Exo\ASSETS_PATH', Exo\APP_PATH . '/assets');
+define('Exo\ASSETS_URL', Exo\APP_URL . '/assets');
+
+
 class Exo
 {
 	const DEFAULT_METHOD = 'index';
@@ -247,7 +278,7 @@ class Exo
 
 		// if restful, use a protocol_segment0 method
 
-		if ($route->restful)
+		if ($route->restful || @$class::$restful)
 		{
 			$method = implode('_', array(
 				strtolower($_SERVER['REQUEST_METHOD']),

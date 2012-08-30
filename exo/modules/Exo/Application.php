@@ -38,6 +38,8 @@ class Application extends Entity
 	 */
 	protected $view;
 
+	public static $restful = FALSE;
+
 	/**
 	 * Instantiate the application
 	 * @param Exo\Request (optional) $request
@@ -46,7 +48,7 @@ class Application extends Entity
 	{
 		$this->request = $request;
 		$this->route = $this->request->route;
-		$this->view = new View($this);
+		if (is_null($this->view)) { $this->view = new View($this); }
 		$this->errors = new Error();
 	}
 

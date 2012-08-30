@@ -3,37 +3,10 @@
  * CMS Page Administrator
  * @header
  */
-
-class CMS_Admin_PageAdmin extends CMS_Admin_Application
+namespace CMS\Page;
+class Admin extends \CMS\Admin\Application
 {
 	const DEFAULT_TEMPLATE = 'default';
-
-	public function init($request)
-	{
-		$request = $this->request;
-		$action = @$request->arguments[1];
-		$noun = @$request->arguments[2];
-		$id = @$request->arguments[3];
-
-		$method = implode('_', array($action, $noun));
-
-		switch ($method)
-		{
-			case 'edit_page':
-			case 'edit_menu':
-			case 'add_page':
-			case 'add_menu':
-			case 'delete_menu';
-			case 'delete_page';
-				return $this->$method($id);
-
-			case '_':
-				return $this->index();
-
-			default:
-				return $this->error();
-		}
-	}
 
 	public function delete_menu($id)
 	{
@@ -209,10 +182,32 @@ class CMS_Admin_PageAdmin extends CMS_Admin_Application
 
 	public function index()
 	{
-		$this->data['pages'] = $this->library->get_pages();
-		$this->data['menus'] = $this->library->get_menus();
-		$this->data['menu_pages'] = $this->library->get_menu_pages();
+		$request = $this->request;
+		$action = @$request->arguments[1];
+		$noun = @$request->arguments[2];
+		$id = @$request->arguments[3];
 
-		return $this->render('cms/admin/pages/index');
+		$method = implode('_', array($action, $noun));
+
+		switch ($method)
+		{
+			case 'edit_page':
+			case 'edit_menu':
+			case 'add_page':
+			case 'add_menu':
+			case 'delete_menu';
+			case 'delete_page';
+				return $this->$method($id);
+
+			case '_':
+				$this->data['pages'] = $this->library->get_pages();
+				$this->data['menus'] = $this->library->get_menus();
+				$this->data['menu_pages'] = $this->library->get_menu_pages();
+
+				return $this->render('cms/admin/pages/index');
+
+			default:
+				return $this->error();
+		}
 	}
 }

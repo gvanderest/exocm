@@ -1,0 +1,291 @@
+/**
+ * SemiosBIO
+ * @author Guillaume VanderEst <guillaume@vanderest.org>
+ */
+
+@import 'reset.css';
+
+body {
+	line-height: 1.6;
+	background: #111;
+}
+table, p, ul, ol, dl {
+	margin-bottom: 15px;
+}
+h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 5px;
+}
+a {
+	color: #080;
+}
+
+h1 { font-size: 24px; color: #2b4; }
+h2 { font-size: 20px; color: #2b4; }
+h3 { font-size: 16px; color: #2b4; }
+h4 { font-size: 14px; color: #2b4; }
+
+/** Fonts **/
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700);
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+}
+#wrapper {
+	min-width: 960px;
+	background: #fff;
+}
+#menu {
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-weight: 300;
+}
+
+/** Reusables **/
+.button {
+	background: url(../img/button-sprite.png);
+	line-height: 31px;
+	font-size: 13px;
+	font-weight: bold;
+	color: #fff;
+	text-transform: uppercase;
+	display: inline-block;
+	width: 120px;
+	text-align: center;
+	text-decoration: none;
+	background-repeat: none;
+	background-position: 0 0;
+}
+.button:hover {
+	background-position: 0 -31px;
+}
+
+/** Sections **/
+#header {
+	position: relative;
+	box-shadow: 0 0 10px #000;
+	z-index: 1000;
+	background: #fff;
+}
+#header-content {
+	position: relative;
+	width: 960px; 
+	margin: 0 auto;
+	height: 165px;
+}
+#header-content #logo {
+	position: absolute;
+	left: 0;
+	top: 50px;
+}
+#menu {
+	position: absolute;
+	bottom: 0;
+	left: -25px;
+	line-height: 1;
+}
+#menu li.is_expanded > a {
+	color: #080;
+}
+#menu > ul > li {
+	float: left;
+	margin-left: 60px;
+}
+#menu > ul > li > a {
+	color: #000;
+	font-weight: 300;
+	text-decoration: none;
+	display: block;
+	padding: 15px 25px;
+}
+#menu > ul > li > a:hover, #menu > ul > li.is_active > a {
+	background: #2cb349;
+	color: #fff;
+}
+#menu a:hover > strong, #menu .is_active > a > strong {
+	color: #fff;
+}
+#menu a strong {
+	color: #080;
+	font-weight: 300;
+}
+#menu ul, #menu li {
+	margin: 0;
+}
+#menu > ul > li:hover > a, #menu > ul > li:hover > a > * {
+	background: #080;
+	color: #fff;
+}
+#menu > ul > li:first-child {
+	margin-left: 0;
+}
+#menu ul ul {
+	display: none;
+	background: #fff;
+	position: absolute;
+	box-shadow: 0 0 10px #aaa;
+	min-width: 170px;
+}
+#menu li:hover > ul {
+	display: block;
+}
+#menu ul ul a {
+	padding: 15px 25px;
+	color: #444;
+	text-decoration: none;
+	display: block;
+	border-top: 1px solid #ccc;
+}
+#menu ul ul li:first-child a {
+	border-top: 0 none;
+}
+#menu ul ul a:hover {
+	color: #080;
+}
+
+#news {
+	width: 380px;
+	float: right;
+}
+#body {
+	width: 960px;
+	margin: 30px auto;
+	overflow: hidden;
+}
+#content {
+	margin-right: 380px;
+	margin-bottom: 50px;
+}
+#footer {
+	font-family: Verdana, sans-serif;
+	background: #111;
+	color: #888;
+	font-size: 10px;
+	z-index: 100;
+	border-top: 1px solid #fff;
+	box-shadow: 0 0 20px #000;
+	min-height: 80px;
+}
+#footer a {
+	color: #888;
+	text-decoration: none;
+}
+#footer a:hover {
+	color: #aaa;
+	text-decoration: underline;
+}
+#footer-content {
+	width: 960px;
+	margin: 0 auto;
+	padding: 15px 0;
+	position: relative;
+}
+#social-media {
+	position: absolute;
+	top: 15px;
+	right: 0;
+}
+#social-media li {
+	display: inline;
+	margin-left: 15px;
+}
+
+#news h2 {
+	font-size: 24px;
+	margin-left: 100px;
+}
+#news li {
+	padding-left: 100px;
+	margin-bottom: 15px;
+	background: url(../img/news-arrow.png) 60px center no-repeat;
+	min-height: 65px;
+}
+#news a {
+	color: #000;
+	text-decoration: none;
+}
+#news a:hover {
+	color: #444;
+	text-decoration: underline;
+}
+#news .date {
+	display: block;
+	color: #155ba1;
+	font-style: italic;
+	font-size: 12px;
+}
+
+/** Custom **/
+#banner, #home-banner {
+	height: 150px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	background-position: center center;
+	border-bottom: 1px solid #ddd;
+	box-shadow: 0 0 10px #888;
+	position: relative;
+}
+#home-banner {
+	background-image: url(../img/home-banner.jpg); 
+	height: 366px; 
+	overflow: hidden;
+	z-index: 100;
+}
+#home-banner .banner a {
+	display: block;
+	width: 50%;
+	height: 366px;
+	float: left;
+	position: relative;
+	z-index: 100;
+}
+#home-banner .banner .bar {
+	height: 155px;
+	width: 50%;
+	position: absolute;
+	top: 102px;
+	z-index: 50;
+}
+#home-banner-semios-guard a { background: url(../img/semiosguard-text.png) center right no-repeat; }
+#home-banner-semios-net a { background: url(../img/semiosnet-text.png) center left no-repeat; }
+#home-banner-semios-guard .bar { 
+	left: 0;
+	background: #1967c1; 
+}
+#home-banner-semios-net .bar { 
+	background: #0c3d01; 
+	right: 0;
+}
+.blog-post .by-line {
+	font-style: italic;
+}
+#search {
+	position: absolute;
+	top: 50px;
+	right: 0;
+}
+#search * {
+	display: inline;
+	font-size: 16px;
+}
+#search .buttons {
+	display: none;
+}
+#search-query {
+	line-height: 20px;
+	font-size: 14px;
+	padding: 3px 40px 3px 6px;
+	background: url(../img/search-icon.png) 165px center no-repeat;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 3px 5px #eee;
+}
+#search label {
+	display: none;
+}
+#search-query {
+	width: 200px;
+}

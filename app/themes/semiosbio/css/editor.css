@@ -1,0 +1,11 @@
+/**
+ * Editor Stylesheet
+ * @author Guillaume VanderEst <guillaume@vanderest.org>
+ */
+
+@import 'styles.css';
+
+body {
+	background: #fff;
+	margin: 15px 30px;
+}
