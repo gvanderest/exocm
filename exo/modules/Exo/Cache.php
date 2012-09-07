@@ -61,7 +61,7 @@ class Cache extends Entity
 	 */
 	public function get_hash($request)
 	{
-		return md5($request->string . '?' . http_build_query($request->arguments));
+		return md5(http_build_query($_REQUEST));
 	}
 
 	/**
