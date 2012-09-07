@@ -8,7 +8,7 @@ if (@$page->slug == 'home')
 {
 	$__title = 'Exodus Media | Kamloops Website Design and Social Media';
 }
-$view = new CMS_View($this->application);
+$view = new CMS\View($this->application);
 ?>
 <!DOCTYPE html>
 	<!--[if lt IE 7]>      <html class="ie6"> <![endif]-->
