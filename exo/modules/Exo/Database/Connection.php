@@ -74,8 +74,15 @@ class Connection extends PDO
 					$values[':' . $value[0]] = $value[2] . '%';
 					break;
 				case 'contains':
-					$wheres[] = sprintf('%1$s LIKE :%1$s', $value[0]);
-					$values[':' . $value[0]] = '%' . $value[2] . '%';
+					$ors = array();
+					$fields = $value[0];
+					if (!is_array($fields)) { $fields = array($fields); }
+					foreach ($fields as $single_field)
+					{
+						$ors[] = sprintf('%1$s LIKE :%1$s', $single_field);
+						$values[':' . $single_field] = '%' . $value[2] . '%';
+					}
+					$wheres[] = implode(' OR ', $ors);
 					break;
 				case 'ends_with':
 					$wheres[] = sprintf('%1$s LIKE :%1$s', $value[0]);
@@ -260,8 +267,9 @@ class Connection extends PDO
 		$options = array_merge(array(
 			'where' => null,
 			'amount' => null,
-			'offset' => null,
-			'fields' => null
+			'offset' => 0,
+			'fields' => null,
+			'sort' => null
 		), $options);
 
 		$values = array();
@@ -282,6 +290,20 @@ class Connection extends PDO
 			}
 		}
 
+		if ($options['sort'] !== NULL)
+		{
+			$order_by = $this->get_order_by($options['sort']);
+			if (!empty($order_by))
+			{
+				$parts[] = $order_by;
+			}
+		}
+
+		if ($options['amount'])
+		{
+			$parts[] = sprintf('LIMIT %d, %d', $options['offset'], $options['amount']);
+		}
+
 		$sql = implode(' ', $parts);
 
 		if ($options['amount'] == 1)
@@ -290,6 +312,22 @@ class Connection extends PDO
 		}
 		return $this->get_all($sql, $values);
 	}
+
+	/**
+	 * Get the order by SQL
+	 * @param array $sorts
+	 * @return string
+	 */
+	public function get_order_by($sorts = array())
+	{
+		if (!is_array($sorts)) { $sorts = array($sorts); }
+
+		if (count($sorts) == 0) { return NULL; }
+
+		$order_by = 'ORDER BY ' . implode(',', $sorts);
+		return $order_by;
+	}
+	
 
 	/**
 	 * Get all records from a query
