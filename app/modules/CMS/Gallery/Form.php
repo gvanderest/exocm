@@ -3,23 +3,31 @@
  * CMS Gallery Creation Form
  * @author Guillaume VanderEst <guillaume@vanderest.org>
  */
-class CMS_GalleryAddForm extends ExoUI_Form
+namespace CMS\Gallery;
+use CMS\Library;
+use ExoUI\Textbox;
+use ExoUI\Slug;
+use ExoUI\Submit;
+class Form extends \ExoUI\Form
 {
 	public $library;
+	public $name;
+	public $slug;
+	public $submit;
 
 	public function __construct($id = 'add_form', $options = array())
 	{
 		parent::__construct($id, $options);
 
-		$this->library = new CMS_Library();
+		$this->library = new Library();
 
-		$this->name = new ExoUI_Textbox('name');
+		$this->name = new Textbox('name');
 
-		$this->slug = new ExoUI_SlugTextbox('slug', array(
+		$this->slug = new Slug('slug', array(
 			'source' => $this->name
 		));
 
-		$this->submit = new ExoUI_Submit('submit', array(
+		$this->submit = new Submit('submit', array(
 			'value' => 'Add Gallery'
 		));
 

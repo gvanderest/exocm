@@ -4,6 +4,7 @@
  * @header
  */
 namespace CMS\Page;
+use CMS\Page\Form as PageForm;
 class Admin extends \CMS\Admin\Application
 {
 	const DEFAULT_TEMPLATE = 'default';
@@ -60,7 +61,7 @@ class Admin extends \CMS\Admin\Application
 	
 	public function add_page()
 	{
-		$this->data['form'] = $form = new CMS_PageAddForm($this);
+		$this->data['form'] = $form = new PageForm($this);
 		$form->set_default_data(array(
 			'template' => self::DEFAULT_TEMPLATE,
 			'active' => 1
@@ -72,7 +73,7 @@ class Admin extends \CMS\Admin\Application
 			$data->active = $form->active->is_checked();
 
 			// prep page data
-			$page = new stdClass;
+			$page = new \stdClass;
 			$page->slug = $this->library->get_unique_page_slug($data->slug);
 			$page->template = $data->template;
 			$page->date_created = date('Y-m-d H:i:s');
@@ -83,7 +84,7 @@ class Admin extends \CMS\Admin\Application
 			if ($page_id)
 			{
 				// prep version data
-				$version = new stdClass;
+				$version = new \stdClass;
 				$version->language = 'en'; // TODO: make this really selectable
 				$version->title = $data->title;
 				$version->content = $data->content;
@@ -125,7 +126,7 @@ class Admin extends \CMS\Admin\Application
 		$this->data['page'] = $page = $this->library->get_page($id);
 		if (!$page) { return $this->error(); }
 
-		$this->data['form'] = $form = new CMS_PageEditForm($this, array('page' => $page));
+		$this->data['form'] = $form = new PageForm($this, array('page' => $page));
 		$form->set_default_data($page);
 
 		if ($form->is_submitted() && $form->is_valid())
@@ -135,14 +136,14 @@ class Admin extends \CMS\Admin\Application
 			$data->active = $form->active->is_checked();
 
 			// prep page data
-			$page = new stdClass;
+			$page = new \stdClass;
 			$page->slug = $data->slug;
 			$page->template = $data->template;
 			$page->date_edited = date('Y-m-d H:i:s');
 			$page->active = $data->active;
 
 			// prep version data
-			$version = new stdClass;
+			$version = new \stdClass;
 			$version->language = 'en'; // TODO: make this really selectable
 			$version->title = $data->title;
 			$version->content = $data->content;

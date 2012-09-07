@@ -3,15 +3,17 @@
  * CMS Admin View
  * @header
  */
-
-class CMS_Admin_View extends Exo\View 
+namespace CMS\Admin;
+use CMS\Library;
+use CMS\Admin\Application;
+class View extends \Exo\View 
 {
 	public $library;
 
 	public function __construct($application)
 	{
 		parent::__construct($application);
-		$this->library = new CMS_Library($application);
+		$this->library = new Library($application);
 	}
 
 	public function get_account_photo_url($account)
@@ -27,7 +29,7 @@ class CMS_Admin_View extends Exo\View
 
 	public function get_logout_url()
 	{
-		$url = $this->application->url_to_self(array(CMS_Admin_Application::LOGOUT_ARGUMENT));
+		$url = $this->application->url_to_self(array(Application::LOGOUT_ARGUMENT));
 		return $url;
 	}
 

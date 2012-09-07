@@ -3,14 +3,11 @@
  * CMS File Manager
  * @header
  */
-namespace CMS\Admin;
-class FileManager extends Application
+namespace CMS\File;
+use CMS\File\UploadForm;
+use CMS\File\FolderForm;
+class Admin extends \CMS\Admin\Application
 {
-	public function __construct($request)
-	{
-		parent::__construct($request);
-	}
-	
 	public function init($request)
 	{
 		$action = @$request->arguments[1];
@@ -45,8 +42,8 @@ class FileManager extends Application
 
 	public function index()
 	{
-		$file_form = $this->data['file_form'] = new CMS_FileUploadForm();
-		$folder_form = $this->data['folder_form'] = new CMS_FolderForm();
+		$file_form = $this->data['file_form'] = new UploadForm();
+		$folder_form = $this->data['folder_form'] = new FolderForm();
 		$path = $this->data['path'] = $this->library->get_assets_path(@$_GET['d']);
 
 		if ($file_form->is_submitted() && $file_form->is_valid())

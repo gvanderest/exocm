@@ -5,7 +5,11 @@
  * This object is read-only and is based upon the 'page' object passed in the $options
  * @header
  */
-class CMS_MenuPageSelector extends ExoUI_DataObject
+namespace CMS;
+use ExoUI\Textbox;
+use ExoUI\Select;
+use ExoUI\Checkbox;
+class MenuPageSelector extends \ExoUI\DataObject
 {
 	public $library;
 	public $page;
@@ -17,7 +21,7 @@ class CMS_MenuPageSelector extends ExoUI_DataObject
 	{
 		parent::__construct($id, $options);
 
-		$this->library = new CMS_Library();
+		$this->library = new Library();
 
 		$this->menus = $this->library->get_menus();
 
@@ -53,7 +57,7 @@ class CMS_MenuPageSelector extends ExoUI_DataObject
 	public function set_value($value)
 	{
 		// FIXME: this has no effect, maybe in the future
-		throw new Exception('CMS_MenuPageSelector cannot be given a value');
+		throw new Exception('MenuPageSelector cannot be given a value');
 		return FALSE;
 	}
 
@@ -71,7 +75,7 @@ class CMS_MenuPageSelector extends ExoUI_DataObject
 			$title_key = 'title_' . $menu->id;
 			$rank_key = 'rank_' . $menu->id;
 
-			$obj = new stdClass;
+			$obj = new \stdClass;
 			$obj->menu_id = $menu->id;
 
 			if (array_key_exists($active_key, $_REQUEST))
@@ -109,22 +113,22 @@ class CMS_MenuPageSelector extends ExoUI_DataObject
 				}
 			}
 
-			$active = new ExoUI_Checkbox('active_' . $menu->id, array(
+			$active = new Checkbox('active_' . $menu->id, array(
 				'label' => 'Active',
 				'return' => 'boolean'
 			));
 			$active->add_option(1, $menu->name);
 
-			$parent = new ExoUI_Select('parent_' . $menu->id, array(
+			$parent = new Select('parent_' . $menu->id, array(
 				'label' => 'Parent'
 			));
 			$this->populate_with_parents($parent, $menu_pages);
 
-			$title = new ExoUI_Textbox('title_' . $menu->id, array(
+			$title = new Textbox('title_' . $menu->id, array(
 				'label' => 'Title',
 				'help' => 'Text to display in a menu'
 			));
-			$rank = new ExoUI_Textbox('rank_' . $menu->id, array(
+			$rank = new Textbox('rank_' . $menu->id, array(
 				'label' => 'Rank',
 				'help' => 'A numeric value to position the item against its siblings'
 			));

@@ -3,7 +3,8 @@
  * CMS Tag
  * @author Guillaume VanderEst <guillaume@vanderest.org>
  */
-abstract class CMS_Tag
+namespace CMS;
+abstract class Tag
 {
 	public $application;
 

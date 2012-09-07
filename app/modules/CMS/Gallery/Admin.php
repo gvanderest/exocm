@@ -3,13 +3,14 @@
  * CMS Gallery Administrator
  * @author Guillaume VanderEst <guillaume@vanderest.org>
  */
-
-class CMS_GalleryAdmin extends CMS_Admin_Application
+namespace CMS\Gallery;
+class Admin extends \CMS\Admin\Application
 {
 	const DEFAULT_TEMPLATE = 'default';
 
-	public function init($request)
+	public function index()
 	{
+		$request = $this->request;
 		$action = @$request->arguments[1];
 		$noun = @$request->arguments[2];
 		$id = @$request->arguments[3];
@@ -25,25 +26,20 @@ class CMS_GalleryAdmin extends CMS_Admin_Application
 				return $this->$method($id);
 
 			case '_':
-				return $this->index();
+				$this->data['galleries'] = $galleries = $this->library->get_galleries();
+				return $this->view->render('cms/admin/galleries/index');
 
 			default:
 				return $this->error();
 		}
 	}
 
-	public function index()
-	{
-		$this->data['galleries'] = $galleries = $this->library->get_galleries();
-		return $this->view->render('cms/admin/galleries/index');
-	}
-
 	public function edit_gallery($id)
 	{
 		$this->data['images'] = $images = $this->library->get_gallery_images($id, array('sort' => 'rank ASC'));
-		$this->data['gallery_form'] = $gallery_form = new CMS_GalleryEditForm('edit_gallery', array('images' => $images, 'application' => $this));
+		$this->data['gallery_form'] = $gallery_form = new Form('edit_gallery', array('images' => $images, 'application' => $this));
 		$this->data['gallery'] = $gallery = $this->library->get_gallery($id);
-		$this->data['image_form'] = $image_form = new CMS_GalleryImageAddForm();
+		$this->data['image_form'] = $image_form = new ImageForm();
 		$gallery_form->set_default_data($gallery);
 		$image_form->filename->set_upload_path(\Exo\ASSETS_PATH . '/galleries/' . $id);
 

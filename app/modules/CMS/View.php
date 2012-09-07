@@ -3,15 +3,24 @@
  * CMS View for rendering templates
  * @header
  */
-use Exo\View as Exo_View;
-class CMS_View extends Exo_View 
+namespace CMS;
+class View extends \Exo\View 
 { 
 	public $library;
+	public $data = array();
 
 	public function __construct($application)
 	{
 		parent::__construct($application);
-		$this->library = new CMS_Library();
+		$this->library = new Library();
+	}
+
+	public function get_menu_pinnacle($name, $page_id)
+	{
+		$menu = $this->library->get_menu_by_slug($name);
+		$entry = $this->library->get_page_menu_entry($page_id, $menu->id);
+		$pinnacle = $this->library->get_menu_page_pinnacle($name, $page_id);
+		return $pinnacle;
 	}
 
 	public function display_menu($name, $options = array())
@@ -27,6 +36,16 @@ class CMS_View extends Exo_View
 			'children' => TRUE, // display children of the items
 			'parents' => array() // parent tree
 		), $options);
+		
+		// detect which page this is
+		if ($options['page'] === NULL)
+		{
+			$page = @$this->data['page'];
+			if (@$page)
+			{
+				$options['page'] = $page;
+			}
+		}
 		
 		$menu = $this->library->get_menu_by_slug($name);
 		if (!$menu) { return NULL; }
@@ -64,13 +83,9 @@ class CMS_View extends Exo_View
 	 */
 	public function render($template, $data = NULL)
 	{
+		$this->data = $data;
 		$response = parent::render($template, $data);
-
-		for ($x = 0; $x < 3; $x++)
-		{
-			$response->content = $this->library->parse_page_tags($this->application, $response->content);
-		}
-
+		$response->content = $this->library->parse_page_tags($this->application, $response->content);
 		return $response;
 	}
 
@@ -121,7 +136,7 @@ class CMS_View extends Exo_View
 				}
 
 				// FIXME: detect the actual route that is a cms application
-				$url = ($options['hashes'] ? '#' . $page->slug : $this->url_to_self(array($page->slug)));
+				$url = ($options['hashes'] ? '#' . $page->slug : ('/' . $page->slug));
 			}
 
 			if (in_array($page->id, $options['parents']))
