@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf8" ?>
+<module>
+	<name>Blog</name>
+	<author>Exodus Media Inc.</author>
+	<email>info@exo.me</email>
+	<url>http://exo.me/</url>
+	<date>2012-08-23</date>
+	<version>0.9</version>
+	<description></description>
+	<permissions>
+		<permission name="draft_post" type="boolean" />
+		<permission name="publish_post" type="boolean" />
+	</permissions>
+</module>
