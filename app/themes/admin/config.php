@@ -27,18 +27,14 @@ $_cms_info['pulse'] = array(
 );
 
 $_cms_info_index = 'exodus';
-if ($_SERVER['HTTP_HOST'] == 'koch.exo.me')
-{
-	$_cms_info_index = 'koch';
-}
 
 if (@$_GET['theme'] && array_key_exists(@$_GET['theme'], $_cms_info))
 {
 	$_cms_info_index = @$_GET['theme'];
 }
 
-foreach ($_cms_info[$_cms_info_index] as $key => $value)
+foreach ($_cms_info[$_cms_info_index] as $__key => $__value)
 {
-	$field = '_cms_' . $key;
-	$$field = $value;
+	$__field = '_cms_' . $__key;
+	$$__field = $__value;
 }
