@@ -61,6 +61,14 @@ class HTML extends Renderer
 	public function render($data = array())
 	{
 		$this->theme = $this->view->application->route->theme;
+		if ((@$_SESSION['_mobile'] == TRUE || preg_match('#mobile#i', @$this->view->application->request->user_agent)) && @$_SESSION['_mobile'] !== FALSE)
+		{
+			$mobile_theme = @$this->view->application->route->mobile_theme;
+			if ($mobile_theme)
+			{
+				$this->theme = $mobile_theme;
+			}
+		}
 		$this->theme_path = $this->_get_theme_path();
 		$this->theme_url = $this->_get_theme_url();
 		$this->template_path = $this->_get_theme_path() . '/' . $this->template . '.php';
